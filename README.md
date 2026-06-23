@@ -68,3 +68,19 @@ git push
 git pull
 ./scripts/install-mac.sh
 ```
+
+## 建立遠端 private repo
+
+目前這個 repo 已經是本機 Git repo。遠端 GitHub repo 建好後，在本資料夾執行：
+
+```bash
+./scripts/connect-remote.sh git@github.com:OWNER/personal-codex-env.git
+```
+
+或：
+
+```bash
+./scripts/connect-remote.sh https://github.com/OWNER/personal-codex-env.git
+```
+
+遠端 repo 必須是 private，而且建議先建立空 repo，不要勾選 README / .gitignore / license，避免第一次 push 要處理 merge。

@@ -10,7 +10,7 @@
 | Codex user skills | 40 | `~/.codex/skills`，排除 `.system` |
 | `.agents` skills | 9 | `~/.agents/skills` |
 | Automation 模板 | 5 | `~/.codex/automations/*/automation.toml` |
-| 安裝/備份腳本 | 3 | `scripts/` |
+| 安裝/備份/遠端連接腳本 | 4 | `scripts/` |
 
 ## 已排除
 
