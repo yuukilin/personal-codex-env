@@ -69,6 +69,26 @@ git pull
 ./scripts/install-mac.sh
 ```
 
+## 另一台 Mac 的 skills 不一樣時
+
+不要先跑 `install-mac.sh`，那會把 repo 版本裝到本機，可能蓋掉另一台 Mac 的差異。
+
+先在另一台 Mac 做融合用快照：
+
+```bash
+./scripts/backup-current.sh
+./scripts/collect-local-for-merge.sh
+git status
+```
+
+這會把另一台 Mac 的 `AGENTS.md`、`~/.codex/skills`、`~/.agents/skills`、automation 模板收集到 `incoming/`，方便之後比較與合併。確認要保留哪些差異後，再把需要的檔案合併回 `skills/`、`agents-skills/` 或 `AGENTS.md`。
+
+只有在合併完成、repo 已確認是你要的版本之後，才執行：
+
+```bash
+./scripts/install-mac.sh
+```
+
 ## 建立遠端 private repo
 
 目前這個 repo 已經是本機 Git repo。遠端 GitHub repo 建好後，在本資料夾執行：
