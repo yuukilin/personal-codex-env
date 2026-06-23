@@ -1,0 +1,4 @@
+interface:
+  display_name: "市場新聞短評"
+  short_description: "找指定日期區間的投資市場事件，並撰寫約200字短評"
+  default_prompt: "Use $market-news-short-commentary to find 10 important investment-market news events for a date range, then draft concise Chinese commentaries from selected URLs."

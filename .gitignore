@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Secrets and local env
+.env
+.env.*
+*.key
+*.token
+auth.json
+config.toml
+
+# Codex local state, never sync
+sessions/
+archived_sessions/
+logs_*.sqlite*
+state_*.sqlite*
+goals_*.sqlite*
+session_index.jsonl
+shell_snapshots/
+cache/
+plugins/cache/
+tmp/
+.tmp/
+
+# Python / JS generated files that may appear inside helper scripts
+__pycache__/
+*.pyc
+node_modules/
+venv/
+.venv/
+

@@ -1,0 +1,64 @@
+# Safe template for ~/.codex/config.toml.
+# Do not put real API keys or auth tokens in this repo.
+
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+personality = "friendly"
+service_tier = "priority"
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."google-drive@openai-curated"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[sandbox_workspace_write]
+network_access = false
+writable_roots = [
+  "/Users/YOUR_USERNAME/.codex/automations",
+  "/Users/YOUR_USERNAME/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板",
+]
+
+[features]
+memories = true
+js_repl = false
+
+[mcp_servers.obsidian-mcp-tools]
+command = "/Users/YOUR_USERNAME/Documents/Codex/tools/obsidian-mcp-tools/mcp-server"
+default_tools_approval_mode = "auto"
+tool_timeout_sec = 120
+
+[mcp_servers.obsidian-mcp-tools.env]
+OBSIDIAN_API_KEY = "PUT_YOUR_LOCAL_OBSIDIAN_API_KEY_HERE"
+OBSIDIAN_USE_HTTP = "true"
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+CODEX_HOME = "/Users/YOUR_USERNAME/.codex"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+
