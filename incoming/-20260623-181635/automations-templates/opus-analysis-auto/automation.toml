@@ -1,0 +1,13 @@
+version = 1
+id = "opus-analysis-auto"
+kind = "cron"
+name = "opus-analysis-auto"
+prompt = "執行投資分析大腦的日報模式。請讀取並遵守 /Users/yuukilin/.codex/skills/opus-analysis/SKILL.md，等同使用者輸入「跑分析」。先讀取專案規劃書 /Users/yuukilin/Documents/Claude/Projects/報告匯流中心/全自動投資訊息系統-架構規劃書.md 以確認系統脈絡。使用 Obsidian MCP 優先讀寫 vault；若 MCP timeout 且本機 vault 路徑可寫，依 skill 規則使用本機 fallback 並完成後驗證。只掃描 3 Analysis/Daily/analyzed-manifest.md、3 Analysis/Daily/_mini-summaries/ 與 canonical 來源：2 Sources/TW-Earnings/、2 Sources/US-Earnings/、2 Sources/Podcasts/、2 Sources/定錨/、2 Sources/Reports/、2 Sources/Research/。不要掃 _system/archive/、Attachments/，也不要讀或新建根目錄 TW-Earnings/、法說會/、0 Inbox/pending-analysis/、03-投資研究/、2 Sources/Transcripts/、2 Sources/Articles/。mini-summary 只能寫入 3 Analysis/Daily/_mini-summaries/，檔名使用 {date}{current_batch_suffix}.md；不要再寫在 3 Analysis/Daily/ 根層的 _mini-summaries-*.md。只分析 manifest 尚未標記 completed 的新報告；若同一天日報已存在，依 skill 規則產出 batch 補充，不要重做既有日報。完成後簡潔回報本輪分析了哪些報告、日報或 batch 存放位置、mini-summary 存放位置、manifest 是否更新、是否仍有待分析項目。若 Obsidian MCP 或寫入權限不可用，清楚列出未完成項目與限制。最後務必將完整結果或失敗摘要寫入 /Users/yuukilin/.codex/automations/opus-analysis-auto/last-run.md，並更新 /Users/yuukilin/.codex/automations/opus-analysis-auto/memory.md，方便之後在 automation thread 之外查看結果。"
+status = "ACTIVE"
+rrule = "RRULE:FREQ=WEEKLY;BYHOUR=9;BYMINUTE=30;BYDAY=SU"
+model = "gpt-5.5"
+reasoning_effort = "high"
+execution_environment = "local"
+cwds = ["/Users/yuukilin/Documents/Claude/Projects/報告匯流中心"]
+created_at = 1780724788149
+updated_at = 1781947373043

@@ -1,0 +1,13 @@
+version = 1
+id = "tw-earnings-fetch"
+kind = "cron"
+name = "tw-earnings-fetch"
+prompt = "執行台股法說會待抓取清單通知。讀取 /Users/yuukilin/.codex/skills/report-intake/SKILL.md 中的 Obsidian規則作為背景，並檢查 /Users/yuukilin/Documents/Claude/Projects/報告匯流中心/investment-data/sources/tw-earnings/pending-list.json，整理 pending 與 fetch_failed 的清單，輸出公司、日期、狀態與 AlphaMemo 連結。只做清單通知，不爬蟲、不開瀏覽器、不寫 Obsidian；實際逐字稿同步由 investment-data/scripts/investment-sync.sh 負責，台股寫入 2 Sources/TW-Earnings/，國際公司寫入 2 Sources/US-Earnings/。若 repo 需要同步但權限或網路受限，先回報限制。最後務必將完整清單或失敗摘要寫入 /Users/yuukilin/.codex/automations/tw-earnings-fetch/last-run.md，並更新 /Users/yuukilin/.codex/automations/tw-earnings-fetch/memory.md，方便之後在 automation thread 之外查看結果。"
+status = "PAUSED"
+rrule = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=8;BYMINUTE=30"
+model = "gpt-5.5"
+reasoning_effort = "high"
+execution_environment = "local"
+cwds = ["/Users/yuukilin/Documents/Claude/Projects/報告匯流中心"]
+created_at = 1780045189526
+updated_at = 1781360729480

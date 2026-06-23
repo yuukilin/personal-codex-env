@@ -1,0 +1,13 @@
+version = 1
+id = "investanchors-scrape"
+kind = "cron"
+name = "investanchors-scrape"
+prompt = "執行定錨產業筆記 VIP 文章增量抓取。讀取 /Users/yuukilin/.codex/skills/investanchors-scraper/SKILL.md；使用 Codex 可用的 Chrome/Browser 工具登入後抓取新文章，寫入 /Users/yuukilin/Desktop/報告收件夾/定錨產業筆記，並更新 /Users/yuukilin/Documents/Claude/Projects/報告匯流中心/investment-data/sources/investanchors-web/state.json。重要：定錨會不定期修改舊報告，所以不能只依 last_scraped_date 停止；每次除了日期增量，也要至少回看 VIP 清單最近 10 篇文章，重新抓內容並計算 hash，與 state.json 的 content_hashes 比對。只有新 URL 或 hash 變更的舊文章才輸出到報告收件夾；hash 完全相同者只記錄為 skipped，不要重複輸出。此 automation 不直接寫 Obsidian；後續由 report-intake-auto 統一建立索引並寫入 2 Sources/定錨/，原始檔歸檔到 Attachments/。禁止寫入或新建根目錄 TW-Earnings/、法說會/、0 Inbox/pending-analysis/、2 Sources/Transcripts/、2 Sources/Articles/。若登入、反爬、權限或 git 同步失敗，保留已完成檔案並明確回報。最後務必將新增文章、hash 變更文章、skipped 舊文章、錯誤與後續動作寫入 /Users/yuukilin/.codex/automations/investanchors-scrape/last-run.md，並更新 /Users/yuukilin/.codex/automations/investanchors-scrape/memory.md，方便之後在 automation thread 之外查看結果。"
+status = "ACTIVE"
+rrule = "RRULE:FREQ=WEEKLY;BYHOUR=9;BYMINUTE=0;BYDAY=SU"
+model = "gpt-5.5"
+reasoning_effort = "high"
+execution_environment = "local"
+cwds = ["/Users/yuukilin/Documents/Claude/Projects/報告匯流中心"]
+created_at = 1780045202372
+updated_at = 1781959818000

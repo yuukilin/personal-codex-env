@@ -1,0 +1,13 @@
+version = 1
+id = "daily-agri-check"
+kind = "cron"
+name = "daily-agri-check"
+prompt = "執行每日農產品日報流程。優先讀取 live skill /Users/yuukilin/.codex/skills/daily-agri-check/SKILL.md；若仍需要舊設定參考，可再讀 /Users/yuukilin/Documents/Claude/Scheduled/daily-agri-check/agri-config.yaml 與 /Users/yuukilin/Documents/Claude/Scheduled/daily-agri-check/REFERENCE.md。需要讀寫 Obsidian 前，先讀 vault 的 _system/rules/obsidian-rules.md 並遵守 Obsidian規則：農產品 tracker 與每日農產品備份只寫入 農產品追蹤/，不得寫入 2 Sources/、舊 Inbox 或其他禁止路徑。查詢農產品價格、新聞、報告、天氣與 ENSO/IOD 等資料，輸出繁體中文完整晨報；聊天視窗與 last-run.md 是使用者查看主交付，Obsidian 是供後續分析回溯的研究資料庫。完成時務必做三件事：1) 更新 Obsidian 的 農產品追蹤/ 相關 tracker，包括 enso/sugar/global 等需要更新的檔案，但不更新 ethanol-parity-tracker；2) 建立或更新完整每日備份 農產品追蹤/daily-report/YYYY-MM-DD-農產品日報.md，frontmatter至少包含 date、tags、source、status: draft，內文保存 Step 6 完整晨報，不可只存摘要；3) 將完整日報或失敗摘要寫入 /Users/yuukilin/.codex/automations/daily-agri-check/last-run.md，並更新 /Users/yuukilin/.codex/automations/daily-agri-check/memory.md。若 Obsidian MCP、Browser/Chrome、網路或本機 vault 寫入權限不可用，清楚列出未完成項目與替代來源。"
+status = "PAUSED"
+rrule = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=8;BYMINUTE=30"
+model = "gpt-5.5"
+reasoning_effort = "high"
+execution_environment = "local"
+cwds = ["~"]
+created_at = 1780045121361
+updated_at = 1781360689446

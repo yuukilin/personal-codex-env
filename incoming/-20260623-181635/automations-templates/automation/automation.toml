@@ -1,0 +1,13 @@
+version = 1
+id = "automation"
+kind = "cron"
+name = "英文語音課"
+prompt = "讀取 /Users/yuukilin/Documents/English/state/course-state.json、/Users/yuukilin/Documents/English/state/review-queue.md、/Users/yuukilin/Documents/English/state/current-session.md，確認目前的下次必考句、中文情境、卡住點，以及是否有進行中課程。\n\n你的任務不是在 Codex 直接開始英文課。不要要求使用者在 Codex 回答英文，不要進入 Echo 練習，不要逐輪寫入任何課程檔案。你的任務只是產生一張可貼到 ChatGPT Voice 的「語音課開課卡」。\n\n不要更新 automation memory，也不要把本次讀了哪些檔案、產生了開課卡、或下一步提醒寫進任何 memory；每日提醒不是正式課程紀錄。\n\n前提：/Users/yuukilin/Documents/English/templates/voice-app-prompt.md 已經被使用者設成 ChatGPT Project / GPT / 自動化的固定指令，所以本次提醒不要要求使用者重貼整份 voice-app-prompt.md。\n\n請用繁體中文短短提醒使用者今天去 ChatGPT App 或 ChatGPT desktop web 的 Voice 上英文課，然後提供下面這張卡。卡片格式必須完整保留：\n\n語音課開課卡\n日期：\n建議課型：A Echo 課 / B 情境對話課 / C 修補課\n下次必考句：\n中文情境：\n目前卡住點：\n今天建議練法：\n\n請先考我「下次必考句」。如果我答對，就照建議課型繼續；如果我卡住，先短修一次，再換一個新情境讓我重講。\n\n建議課型選擇規則：\n- 如果 review queue 或 course-state 裡有明確卡住點，優先建議 C 修補課。\n- 如果近期沒有卡住點，建議 A Echo 課。\n- 如果使用者最近已連續做 Echo 或修補，建議 B 情境對話課。\n\n如果 current-session.md 顯示有進行中課程，不要直接開課；在提醒中註明：目前有未結束課程，建議先回 Codex 處理接續、下課整理或丟棄暫存。\n\n提醒使用者：把這張「語音課開課卡」貼進已設定好 voice-app-prompt.md 的 ChatGPT Voice 對話，然後開啟 Voice。語音課結束時對 ChatGPT 說「下課，請輸出語音課同步卡」。下課後回到 Codex，把整張同步卡貼上，並在同一則訊息加上「同步語音課」。Codex 收到後才會更新 /Users/yuukilin/Documents/English/state/session-log.md、/Users/yuukilin/Documents/English/state/review-queue.md、/Users/yuukilin/Documents/English/state/course-state.json、/Users/yuukilin/Documents/English/state/current-session.md。\n\n回覆要短，像提醒卡，不要長篇教學。"
+status = "ACTIVE"
+rrule = "RRULE:FREQ=WEEKLY;BYHOUR=21;BYMINUTE=0;BYDAY=SU,MO,TU,WE,TH,FR,SA"
+model = "gpt-5.5"
+reasoning_effort = "xhigh"
+execution_environment = "local"
+cwds = ["/Users/yuukilin/Documents/English"]
+created_at = 1781941665608
+updated_at = 1782138118092
