@@ -175,7 +175,8 @@ total_analyzed: 5
 | 檔名日期 >= initialized_date 且在 `completed_sources` 中 | 跳過 |
 | 檔名日期 >= initialized_date 且不在 `completed_sources` 中 | 待分析 |
 | 在「待重分析」區段 | 無論日期都加入 |
-| 檔名日期超過 30 天前 | 跳過（待重分析不受此限） |
+
+**日期範圍規則**：只納入最近 60 天內、檔名日期 >= `initialized_date`、位於 canonical 路徑且尚未被 manifest / completed mini-summary 標記完成的來源。檔名日期距離今天超過 60 天者跳過；但「待重分析」區段不受 60 天限制，無論日期都要納入。
 
 **1e. 分級排序與優先權打分**：A 級（法說會、定錨 VIP、券商報告）優先，再 B 級（Podcast）。各級內不要只按日期排序，要加上優先權：
 - 使用者近期關注的 ticker 或主題

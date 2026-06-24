@@ -1,0 +1,4 @@
+interface:
+  display_name: "English Echo Coach"
+  short_description: "Echo-based English lessons with memory"
+  default_prompt: "Use $english-echo-coach to start an adaptive English lesson."

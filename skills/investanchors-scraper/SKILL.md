@@ -33,11 +33,20 @@ description: >
 
 ### 第二步：收集文章連結
 用 javascript_tool 執行，SCRAPE_AFTER_DATE 填入 last_scraped_date：
+
+**重要：不要只依日期停止。** 定錨會不定期修改舊報告，所以每次都要額外回看 VIP 清單最近 10 篇文章：
+- 日期大於 `last_scraped_date` 的文章一律抓取
+- 日期小於或等於 `last_scraped_date` 的文章，仍至少收集最近 10 篇作為 lookback
+- lookback 文章抓完內容後計算 hash，與 `investment-data/sources/investanchors-web/state.json` 的 `content_hashes` 比對
+- 只有新 URL 或 hash 變更的舊文章才輸出到報告收件夾；hash 相同者記錄為 skipped，不要重複輸出
+- 若 `state.json` 與舊指南檔日期不一致，以 `state.json` 為準
+
 ```javascript
 const SCRAPE_AFTER_DATE = "{{last_scraped_date}}";
+const LOOKBACK_COUNT = 10;
 (async function() {
   const cutoffDate = SCRAPE_AFTER_DATE ? new Date(SCRAPE_AFTER_DATE.replace(/\//g, "-")) : null;
-  const allArticles = []; const seen = new Set(); let stopEarly = false;
+  const allArticles = []; const seen = new Set(); let stopEarly = false; let recentSeen = 0;
   let lo = 1, hi = 100;
   while (lo < hi) {
     const mid = Math.ceil((lo + hi) / 2);
@@ -59,7 +68,8 @@ const SCRAPE_AFTER_DATE = "{{last_scraped_date}}";
       const row = a.closest("tr") || a.parentElement;
       const tds = row ? row.querySelectorAll("td") : [];
       const dateText = tds.length >= 2 ? tds[1].textContent.trim() : "";
-      if (cutoffDate && dateText && new Date(dateText.replace(/\//g, "-")) <= cutoffDate) { stopEarly = true; return; }
+      recentSeen++;
+      if (cutoffDate && dateText && new Date(dateText.replace(/\//g, "-")) <= cutoffDate && recentSeen > LOOKBACK_COUNT) { stopEarly = true; return; }
       allArticles.push({ title: a.textContent.trim(), href: href.startsWith("http") ? href : "https://investanchors.com" + href, date: dateText });
     });
     await new Promise(r => setTimeout(r, 300));
@@ -70,6 +80,17 @@ const SCRAPE_AFTER_DATE = "{{last_scraped_date}}";
 ```
 
 0 篇則告知使用者並結束。
+
+### 第二步後：hash 去重與舊文改版判斷
+
+爬取文章內容後、寫入報告收件夾前，讀取 `state.json`：
+- 對每篇文章用 canonical URL 當 key，對清理後正文計算穩定 hash
+- 若 URL 不存在於 `content_hashes`：標記為 `new`
+- 若 URL 存在但 hash 不同：標記為 `updated`
+- 若 URL 存在且 hash 相同：標記為 `skipped`
+- 只將 `new` 與 `updated` 寫入 `/Users/yuukilin/Desktop/報告收件夾/定錨產業筆記`
+- 回報時分列 `new_articles`、`updated_articles`、`skipped_articles`
+- 更新 `state.json.content_hashes[url] = hash`，並保留 `processed_articles`
 
 ### 第三步：爬取文章內容
 用 fire-and-forget 模式，腳本立即返回，爬蟲背景跑。

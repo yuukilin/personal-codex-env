@@ -81,6 +81,13 @@ find "$INBOX_PATH" -type f \( -iname "*.pdf" -o -iname "*.doc" -o -iname "*.docx
 
 優先用 Obsidian MCP 的 `search_vault` 工具，搜尋 `2 Sources/` 底下所有子資料夾中已存在的索引筆記。若本回合沒有 MCP，改用本機 vault 路徑掃描 `2 Sources/`。比對原始檔名是否已出現在某份索引筆記的 frontmatter 或內文中（可搜尋重新命名後的檔名或原始檔名片段）。已處理過的檔案標記為「已處理，跳過」。
 
+**定錨舊文改版例外（不可跳過）**：
+- 定錨爬蟲會因為舊報告改版而把同一 URL 或同一檔名重新放回收件夾。
+- 若收件夾檔案已存在於某份索引筆記的 `report_intake.original_url` 或 `report_intake.original_filename`，不要立刻跳過；先計算目前收件夾檔案清理後內容的 hash，並與既有索引的 `report_intake.content_hash` 比對。
+- hash 相同：標記為「已處理，跳過」，並把收件夾檔案移到 `Attachments/已處理重複/` 或桌面已整理備份，避免下次重掃。
+- hash 不同：標記為「舊文改版」，不可建立第二份重複索引。應先讀既有索引與新版原文，比對是否只是校字小修或有投資論點變化；小修可更新主附件並保留舊版備份，重大變化才重寫摘要、更新 `report_intake.content_hash` 與 Theme/Ticker/MOC。
+- 回報時把這類檔案列為「版本更新」而非「新報告」。
+
 ### Step 3：自動處理（嚴格禁止要使用者確認）
 
 掃描完報告收件夾後，自動跳過已處理檔，直接開始處理所有待處理檔。**禁止列清單給使用者確認，禁止問「要全部處理還是指定編號」**。
