@@ -11,6 +11,25 @@ Help the user keep two Macs on the same Codex rules and skills by using the priv
 
 Treat this repo as the sync center. The live files are still under `~/.codex/` and `~/.agents/`; the repo only stores the portable copy.
 
+## First-Time Setup on the Other Mac
+
+If the other Mac has not installed the latest repo version yet, it will not know this skill. In that case, give that Mac's Codex this exact message:
+
+```text
+請先執行這段，取得最新 personal-codex-env，備份目前設定，並安裝最新 Codex skills。完成後如果 skill 清單沒刷新，請提醒我重開 Codex。
+```
+
+Then run:
+
+```bash
+cd ~/Documents/Codex/personal-codex-env
+git pull --ff-only
+./scripts/backup-current.sh
+./scripts/install-mac.sh
+```
+
+After this one-time install, the other Mac can use the same natural-language triggers such as "更新 skill" and "另一台 Mac 更新 skill，幫我 pull 下來".
+
 ## Decide the Direction
 
 First identify what the user means:
@@ -75,6 +94,7 @@ Rules:
 
 - Do not run `install-mac.sh` until the merge is resolved.
 - Do not overwrite live `~/.codex/skills` without first running `backup-current.sh`.
+- Preserve `~/.codex/skills/.system`; it contains Codex system skills and must not be copied into the repo or deleted during install.
 - Use `collect-local-for-merge.sh` on the Mac with unsynced local changes.
 - Compare `incoming/` against `skills/`, `agents-skills/`, `AGENTS.md`, and `automations-templates/`.
 - Preserve host-specific automation status and schedules unless the user explicitly asks to change them.

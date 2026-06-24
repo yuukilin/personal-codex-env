@@ -58,6 +58,23 @@ shell_snapshots/
 - `另一台 Mac 更新 skill，幫我 pull 下來`：表示 GitHub 已有新版本，這台要 pull、backup、install。
 - `兩台 Mac 的 skill 都有改`：先不要安裝，請 Codex 走融合流程。
 
+另一台 Mac 第一次還沒有拿到 `codex-env-sync` 這個 skill 時，請先把這段貼給那台 Mac 的 Codex：
+
+```text
+請先執行這段，取得最新 personal-codex-env，備份目前設定，並安裝最新 Codex skills。完成後如果 skill 清單沒刷新，請提醒我重開 Codex。
+```
+
+然後讓它執行：
+
+```bash
+cd ~/Documents/Codex/personal-codex-env
+git pull --ff-only
+./scripts/backup-current.sh
+./scripts/install-mac.sh
+```
+
+這次完成後，另一台 Mac 也會有 `codex-env-sync`，以後就可以用同一套說法同步。
+
 手動操作版如下。
 
 在改完 skill 的那台 Mac：
