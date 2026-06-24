@@ -7,7 +7,7 @@
 | 類別 | 數量 | 來源 |
 |---|---:|---|
 | Codex 全域規則 | 1 | `~/.codex/AGENTS.md` |
-| Codex user skills | 41 | `~/.codex/skills`，排除 `.system` |
+| Codex user skills | 42 | `~/.codex/skills`，排除 `.system` |
 | `.agents` skills | 8 | `~/.agents/skills` |
 | Automation 模板 | 6 | `~/.codex/automations/*/automation.toml` 與另一台 Mac incoming |
 | 安裝/備份/融合/遠端連接腳本 | 5 | `scripts/` |

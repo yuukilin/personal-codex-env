@@ -52,9 +52,18 @@ shell_snapshots/
 
 ## 更新流程
 
-在主要 Mac 改完 skill 後：
+你可以直接對 Codex 說：
+
+- `更新 skill`：表示這台 Mac 剛改完，要 snapshot、commit、push 到 GitHub。
+- `另一台 Mac 更新 skill，幫我 pull 下來`：表示 GitHub 已有新版本，這台要 pull、backup、install。
+- `兩台 Mac 的 skill 都有改`：先不要安裝，請 Codex 走融合流程。
+
+手動操作版如下。
+
+在改完 skill 的那台 Mac：
 
 ```bash
+cd ~/Documents/Codex/personal-codex-env
 ./scripts/snapshot-from-local.sh
 git status
 git add .
@@ -62,12 +71,16 @@ git commit -m "Update Codex skills"
 git push
 ```
 
-在另一台 Mac：
+在要接收更新的另一台 Mac：
 
 ```bash
-git pull
+cd ~/Documents/Codex/personal-codex-env
+git pull --ff-only
+./scripts/backup-current.sh
 ./scripts/install-mac.sh
 ```
+
+如果 `git pull --ff-only` 失敗，代表兩邊可能都改過；先停下來，不要跑 `install-mac.sh`。
 
 ## 另一台 Mac 的 skills 不一樣時
 

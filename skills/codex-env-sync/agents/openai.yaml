@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Env Sync"
+  short_description: "同步兩台 Mac 的 Codex rules、skills 與 automation templates"
+  default_prompt: "使用 $codex-env-sync，協助我同步這台 Mac 的 Codex skills。"
