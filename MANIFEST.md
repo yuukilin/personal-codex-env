@@ -1,6 +1,6 @@
 # Manifest
 
-更新日期：2026-06-23
+更新日期：2026-06-24
 
 ## 已納入
 
@@ -8,7 +8,7 @@
 |---|---:|---|
 | Codex 全域規則 | 1 | `~/.codex/AGENTS.md` |
 | Codex user skills | 41 | `~/.codex/skills`，排除 `.system` |
-| `.agents` skills | 9 | `~/.agents/skills` |
+| `.agents` skills | 8 | `~/.agents/skills` |
 | Automation 模板 | 6 | `~/.codex/automations/*/automation.toml` 與另一台 Mac incoming |
 | 安裝/備份/融合/遠端連接腳本 | 5 | `scripts/` |
 
