@@ -46,3 +46,4 @@
 - 製作或修改 Codex skill 時，優先使用 `$skill-creator` 或現有 Codex skill 格式。
 - skill 必須包含 `SKILL.md`，且 frontmatter 有 `name` 和 `description`。
 - 若需要打包，先確認本機是否存在指定打包腳本；不存在就回報並使用 Codex 可用的替代方式。
+- 只要本回合新增或修改 Codex skill、`.agents/skills`、`AGENTS.md`、或同步腳本，收尾時自動使用 `codex-env-sync` 流程：先備份、列出差異、讓使用者確認，再 commit/push；同名 skill 兩邊不同時不要自行融合，先讓使用者選 repo 版或本機版哪個是新版。
