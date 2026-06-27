@@ -33,7 +33,7 @@
 
 ## Obsidian
 
-- 需要讀寫 Obsidian 時，優先使用 Obsidian MCP；若本回合未提供該工具，先告知。
+- 需要讀寫 Obsidian 時，優先使用 Obsidian MCP；若本回合未提供該工具，先用工具搜尋載入 `obsidian mcp tools` / `mcp__obsidian_mcp_tools`，再判斷不可用並說明限制。
 - 新筆記檔名：`YYYY-MM-DD-主題.md`。
 - frontmatter 至少包含：`date`, `tags`, `source`, `status: draft`。
 - tags 使用英文小寫。內容繁體中文。使用 `[[wikilink]]`。
