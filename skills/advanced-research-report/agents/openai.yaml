@@ -1,0 +1,6 @@
+interface:
+  display_name: "進階研究報告"
+  short_description: "結合財報狗最新資料與OB產出買賣決策型公司研究報告"
+  default_prompt: "Use $advanced-research-report to evaluate whether I should buy, hold, add, trim, or sell a company based on latest data and my Obsidian research."
+policy:
+  allow_implicit_invocation: true

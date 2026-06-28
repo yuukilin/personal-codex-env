@@ -24,6 +24,10 @@ description: >
 
 以下為存檔模式的完整流程。
 
+## Obsidian MCP 可用性
+
+優先使用 Obsidian MCP。若工具清單未露出，先用 `tool_search` 搜尋 `obsidian mcp tools` 載入 `mcp__obsidian_mcp_tools`，並呼叫 `get_server_info` 驗證。只有載入失敗、驗證失敗或 timeout，才說 MCP 不可用並改用本機 vault fallback；不要只因工具未直接顯示就判定連不到。
+
 ---
 
 ## 存檔流程（7 步）

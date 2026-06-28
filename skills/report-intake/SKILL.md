@@ -39,7 +39,7 @@ description: >
 | Ticker 總覽頁位置 | vault `3 MOC/Tickers/` |
 
 **關鍵限制**：
-1. Vault 讀寫優先使用 Obsidian MCP（`mcp__obsidian-mcp-tools__*`）。若本回合未提供 MCP、MCP timeout，且本機 vault 路徑可讀寫，可直接使用本機路徑 fallback，完成後再驗證檔案位置。
+1. Vault 讀寫優先使用 Obsidian MCP（目前 namespace 為 `mcp__obsidian_mcp_tools`；舊文件中的 `mcp__obsidian-mcp-tools__*` 視為同一組工具）。若工具清單未露出，先用 `tool_search` 搜尋 `obsidian mcp tools` 載入，並呼叫 `get_server_info` 驗證；只有載入失敗、驗證失敗或 MCP timeout，且本機 vault 路徑可讀寫時，才使用本機路徑 fallback，完成後再驗證檔案位置。
 2. 此 skill 從 Cowork 搬到 Codex 後，不再使用 `mcp__cowork__request_cowork_directory` 或 `/sessions/<session-id>/mnt/...` 路徑。
 3. 圖片讀取用 Codex 可用的圖片/文件工具；不要把「Read 工具」當成固定工具名稱。
 4. 新索引筆記只可寫入 canonical 路徑：`2 Sources/定錨/`、`2 Sources/Research/`、`2 Sources/Reports/`。自動化逐字稿來源由各自管線寫入 `2 Sources/TW-Earnings/`、`2 Sources/US-Earnings/`、`2 Sources/Podcasts/`。
@@ -79,7 +79,7 @@ find "$INBOX_PATH" -type f \( -iname "*.pdf" -o -iname "*.doc" -o -iname "*.docx
 
 ### Step 2：增量處理——比對已存在的索引筆記
 
-優先用 Obsidian MCP 的 `search_vault` 工具，搜尋 `2 Sources/` 底下所有子資料夾中已存在的索引筆記。若本回合沒有 MCP，改用本機 vault 路徑掃描 `2 Sources/`。比對原始檔名是否已出現在某份索引筆記的 frontmatter 或內文中（可搜尋重新命名後的檔名或原始檔名片段）。已處理過的檔案標記為「已處理，跳過」。
+優先用 Obsidian MCP 的 `search_vault` 工具，搜尋 `2 Sources/` 底下所有子資料夾中已存在的索引筆記。若完成 MCP 載入與 `get_server_info` 驗證後仍沒有 MCP，改用本機 vault 路徑掃描 `2 Sources/`。比對原始檔名是否已出現在某份索引筆記的 frontmatter 或內文中（可搜尋重新命名後的檔名或原始檔名片段）。已處理過的檔案標記為「已處理，跳過」。
 
 **定錨舊文改版例外（不可跳過）**：
 - 定錨爬蟲會因為舊報告改版而把同一 URL 或同一檔名重新放回收件夾。
@@ -282,7 +282,7 @@ mv "$INBOX_PATH/原檔名.pdf" "$INBOX_PATH/新檔名.pdf"
 
 注意：台股法說會逐字稿（TW-Earnings）、美股法說會逐字稿（US-Earnings）、Podcast 逐字稿由各自自動化管線處理，不經過 report-intake，分別寫入 `2 Sources/TW-Earnings/`、`2 Sources/US-Earnings/`、`2 Sources/Podcasts/`。
 
-優先用 Obsidian MCP 的 `create_vault_file` 在上述對應資料夾建立索引筆記。若本回合沒有 MCP、但本機 vault 路徑可寫，直接用本機路徑建立檔案。
+優先用 Obsidian MCP 的 `create_vault_file` 在上述對應資料夾建立索引筆記。若完成 MCP 載入與 `get_server_info` 驗證後仍沒有 MCP、但本機 vault 路徑可寫，直接用本機路徑建立檔案。
 
 **重要**：使用 `create_vault_file` 而非 `patch_vault_file`，因為 patch 對中文標題有已知 bug。
 
@@ -1360,7 +1360,7 @@ read -n 1
 - 在 Step 7 完成回報中統一列出所有處理失敗的檔案及失敗原因
 - Obsidian MCP 的 `patch_vault_file` 對中文標題有已知 bug，一律使用 `create_vault_file` 建立或覆寫整份檔案
 - `create_vault_file` 對含全形冒號（：）的檔名可能在 vault 根目錄產生空白副本。建立 .md 原文到 Attachments/ 後，必須用 `search_vault_simple` 確認 vault 根目錄沒有同名空檔，若有則用 `delete_vault_file` 刪除
-- 若 Obsidian MCP 連線失敗，提示使用者確認 Obsidian 是否已開啟且 Local REST API plugin 是否啟用
+- 若 `get_server_info` 連線失敗，提示使用者確認 Obsidian 是否已開啟，且 Local REST API / MCP Tools plugin 是否啟用
 
 ---
 
@@ -1422,7 +1422,7 @@ Python 處理腳本放在使用者的工作資料夾：
      python3 /tmp/gen_notes_v2.py --input /tmp/batch_clean.json
    輸出：/tmp/batch_final.json
 5. 寫回清洗後原文到 vault Attachments/（取代亂碼原檔）：
-   讀取 batch_clean.json，逐筆用 mcp__obsidian-mcp-tools__create_vault_file 將清洗後的 .md 寫入 vault 的 Attachments/ 資料夾。
+   讀取 batch_clean.json，逐筆用 mcp__obsidian_mcp_tools__create_vault_file 將清洗後的 .md 寫入 vault 的 Attachments/ 資料夾。
    這一步確保 vault 中的原始附件是乾淨版本，使用者點進 wikilink 看到的不會是亂碼。
 
    逐筆呼叫 Obsidian MCP 時：
@@ -1440,7 +1440,7 @@ Python 處理腳本放在使用者的工作資料夾：
          clean_text = item['clean_text']   # 清洗後的純文字內容
          # 用 Obsidian MCP create_vault_file 寫入 Attachments/{filename}
 
-6. 逐筆上傳索引筆記到 Obsidian vault：讀取 batch_final.json，用 mcp__obsidian-mcp-tools__create_vault_file 寫入每筆筆記
+6. 逐筆上傳索引筆記到 Obsidian vault：讀取 batch_final.json，用 mcp__obsidian_mcp_tools__create_vault_file 寫入每筆筆記
 
 ### 批次進度（持續更新）
 

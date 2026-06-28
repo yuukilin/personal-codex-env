@@ -1,0 +1,6 @@
+interface:
+  display_name: "初步研究報告"
+  short_description: "建立公司或產業第一版完整研究底稿並寫入OB研究資料庫"
+  default_prompt: "Use $research-report to write an initial research report that builds my first complete view of a company or investment theme."
+policy:
+  allow_implicit_invocation: true

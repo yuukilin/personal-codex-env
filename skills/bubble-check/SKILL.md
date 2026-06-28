@@ -19,7 +19,7 @@ description: 手動執行 AI/美股泡沫檢查。當使用者說「泡沫檢查
 
 ## 必讀 Obsidian 筆記
 
-優先使用 Obsidian MCP 讀取。若 MCP 不可用或連不上，告知限制後改用本機 iCloud vault 路徑。
+優先使用 Obsidian MCP 讀取。若工具清單未露出，先用 `tool_search` 搜尋 `obsidian mcp tools` 載入 `mcp__obsidian_mcp_tools`，並呼叫 `get_server_info` 驗證。只有載入失敗、驗證失敗或連不上，才告知限制後改用本機 iCloud vault 路徑。
 
 Vault 根目錄：
 

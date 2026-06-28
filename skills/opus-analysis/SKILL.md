@@ -68,8 +68,8 @@ description: >
 | Ticker 總覽 | vault `3 MOC/Tickers/` |
 
 **關鍵限制**：
-1. 正常讀寫透過 Obsidian MCP（`mcp__obsidian-mcp-tools__*`）。若 MCP 在大檔案或 manifest 讀寫時 timeout，先用本機 vault 路徑做只限本流程的續讀/續寫 fallback，完成後回到 MCP 或重新讀取驗證；不可因 timeout 就直接中止。
-2. Obsidian 必須保持開啟。如果 MCP 連不上，提醒使用者開啟 Obsidian。
+1. 正常讀寫透過 Obsidian MCP（目前 namespace 為 `mcp__obsidian_mcp_tools`；舊文件中的 `mcp__obsidian-mcp-tools__*` 視為同一組工具）。若工具清單未露出，先用 `tool_search` 搜尋 `obsidian mcp tools` 載入，並呼叫 `get_server_info` 驗證；只有載入失敗、驗證失敗或 timeout，才說 MCP 不可用並 fallback。若 MCP 在大檔案或 manifest 讀寫時 timeout，先用本機 vault 路徑做只限本流程的續讀/續寫 fallback，完成後回到 MCP 或重新讀取驗證；不可因 timeout 就直接中止。
+2. Obsidian 必須保持開啟。如果 `get_server_info` 連不上，提醒使用者開啟 Obsidian 並確認 Local REST API / MCP Tools plugin 已啟用。
 3. 只使用本回合實際可用的 Obsidian 工具。若 `search_vault_simple` 或 `patch_vault_file` 未暴露，改用 `list_vault_files` + `get_vault_file` 精準讀取；一般小檔可讀全文覆寫，manifest 這類大檔不要為了更新 metadata 強制整份覆寫，除非使用者明確要求維護。
 4. 掃描來源只認 canonical 路徑：`2 Sources/TW-Earnings/`、`2 Sources/US-Earnings/`、`2 Sources/Podcasts/`、`2 Sources/定錨/`、`2 Sources/Reports/`、`2 Sources/Research/`。不要掃 `_system/archive/`、`Attachments/`，也不要讀舊根目錄 `TW-Earnings/`、`法說會/`、`0 Inbox/pending-analysis/`、`03-投資研究/`。
 5. mini-summary 只能位於 `3 Analysis/Daily/_mini-summaries/`。若在 `3 Analysis/Daily/` 根層看到 `_mini-summaries-YYYY-MM-DD*.md`，那是舊格式或誤寫檔；先搬到 `3 Analysis/Daily/_mini-summaries/YYYY-MM-DD*.md`，再進行 resume / Reduce / 新批次判斷。
