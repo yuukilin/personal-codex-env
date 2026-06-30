@@ -1,0 +1,44 @@
+ticker_map:
+  sugar: {code: SB, ticker: SBN26, label: 糖SB Jul, unit: c/lb, exchange: ICE, url_path: sugar}
+  corn: {code: ZC, ticker: ZCN26, label: 玉米ZC Jul, unit: c/bu, exchange: CBOT, url_path: corn}
+  wheat: {code: ZW, ticker: ZWN26, label: 小麥ZW Jul, unit: c/bu, exchange: CBOT, url_path: wheat}
+  soybeans: {code: ZS, ticker: ZSN26, label: 大豆ZS Jul, unit: c/bu, exchange: CBOT, url_path: soybeans}
+  cotton: {code: CT, ticker: CTN26, label: 棉花CT Jul, unit: c/lb, exchange: ICE, url_path: cotton}
+  coffee: {code: KC, ticker: KCN26, label: 咖啡KC Jul, unit: c/lb, exchange: ICE, url_path: coffee}
+  cocoa: {code: CC, ticker: CCN26, label: 可可CC Jul, unit: USD/t, exchange: ICE, url_path: cocoa}
+  palm_oil: {code: FCPO, ticker: FCPO, label: 棕櫚油FCPO, unit: MYR/t, exchange: BMD, url_path: palm-oil}
+  crude_oil: {code: CL, ticker: CLN26, label: WTI原油CL Jul, unit: USD/bbl, exchange: NYMEX, url_path: crude-oil}
+
+paths:
+  vault_agri_root: "/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板/農產品追蹤"
+  daily_report_dir: "daily-report"
+  automation_dir: "/Users/yuukilin/.codex/automations/daily-agri-check"
+
+do_not_update:
+  - ethanol-parity-tracker.md
+
+required_trackers:
+  - enso-tracker.md
+  - sugar-tracker.md
+  - global-monitor-tracker.md
+  - palm-oil-tracker.md
+  - crop-progress-tracker.md
+
+sugar_five_factor_dashboard:
+  - id: 1
+    factor: El Nino 發展
+    bullish_trigger: "NOAA 宣告 El Nino，或 Nino 3.4 >= +1.0C 且預測持續"
+  - id: 2
+    factor: 印度季風偏弱
+    bullish_trigger: "IMD/Skymet 季風預報 < 96% LPA"
+  - id: 3
+    factor: 泰國乾旱
+    bullish_trigger: "榨季產量 YoY 下滑 > 5%"
+  - id: 4
+    factor: 巴西糖佔比下滑
+    bullish_trigger: "UNICA 糖佔比 < 45% 且持續下降，或糖價持續低於乙醇平價"
+  - id: 5
+    factor: 巴西物流瓶頸
+    bullish_trigger: "Santos 排隊天數 > 30 天，或運費異常"
+
+ethanol_parity_formula: "CEPEA_USD_m3 * 0.030 + 2.5"
