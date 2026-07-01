@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "timezone": "Asia/Taipei",
+  "core_sources": {
+    "future": {
+      "landing_url": "https://www.futureelectronics.com/resources/market-conditions-report",
+      "pdf_url": "https://media.futureelectronics.com/doc/Market-Conditions-Report.pdf",
+      "category_slugs": [
+        "analog",
+        "batteries",
+        "connectivity-solutions",
+        "discretes",
+        "electromechanical",
+        "high-end",
+        "interconnect",
+        "lighting-solutions",
+        "memory",
+        "passives"
+      ]
+    },
+    "hqew": {
+      "fire_index_url": "https://fh.hqew.com/",
+      "cloud_quote_url": "https://p.hqew.com/",
+      "backup_hqbuy_url": "https://www.hqbuy.com/"
+    }
+  },
+  "category_mapping": {
+    "analog": ["電源IC", "運放IC", "接口IC", "驅動IC", "模擬IC", "PMIC", "Power"],
+    "passives": ["貼片電容", "電阻", "電感器", "磁珠", "陶瓷電容", "鋁電解電容"],
+    "discretes": ["二極體", "MOS管", "三極體", "TVS", "整流橋", "碳化矽"],
+    "memory": ["存儲IC", "NOR Flash", "NAND", "DRAM", "EEPROM"],
+    "interconnect": ["連接器", "FPC連接器", "端子", "接插件", "電源連接器"],
+    "connectivity-solutions": ["接口IC", "通信IC", "無線模組", "CAN", "LIN"],
+    "electromechanical": ["繼電器", "開關器", "模組"],
+    "high-end": ["MCU", "FPGA", "處理器", "高階IC"],
+    "lighting-solutions": ["LED", "光耦", "光電器件", "照明"],
+    "batteries": ["電源", "電池", "保護IC"]
+  },
+  "watch_keywords": [
+    "PMIC",
+    "Power",
+    "Power Converters",
+    "LDO",
+    "Motor/Gate Drivers",
+    "MOSFET",
+    "Memory",
+    "Connector",
+    "Passives",
+    "MLCC",
+    "AI",
+    "server"
+  ],
+  "thresholds": {
+    "high_priority_score": 70,
+    "watch_score": 50,
+    "hqew_pct_change_attention": 30,
+    "future_lead_time_attention_weeks": 20
+  }
+}
