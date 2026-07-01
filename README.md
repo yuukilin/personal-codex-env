@@ -11,8 +11,9 @@ AGENTS.md                 # Codex 全域規則
 skills/                   # ~/.codex/skills 的 user skills，不含 .system
 agents-skills/            # ~/.agents/skills 的遷移 skills
 automations-templates/    # Codex automation 設定模板，只放 automation.toml
+automation-tools/         # 可攜 automation 工具包，不放執行輸出
 config.template.toml      # 安全版 Codex config 範例，不含 token
-scripts/install-mac.sh    # 在另一台 Mac 套用 rules / skills
+scripts/install-mac.sh    # 在另一台 Mac 套用 rules / skills / automation 工具包
 scripts/backup-current.sh # 套用前備份當前本機設定
 ```
 
@@ -28,6 +29,7 @@ goals_*.sqlite
 cache/
 plugins/cache/
 shell_snapshots/
+automation raw/reports/snapshots
 *.token
 *.key
 .env
@@ -49,7 +51,8 @@ shell_snapshots/
 3. 依照 `config.template.toml` 建立或調整 `~/.codex/config.toml`。
 4. 確認 Obsidian Local REST API 的 API key 與 vault 路徑。
 5. 重新啟動 Codex，讓 MCP tools 重新載入。
-6. 只在一台 Mac 啟用 automations。
+6. `install-mac.sh` 只會把 automation 模板放到 `~/.codex/automation-templates`，不會自動啟用排程。
+7. 只在一台 Mac 啟用 automations。
 
 ## 更新流程
 
@@ -112,7 +115,7 @@ git pull --ff-only
 git status
 ```
 
-這會把另一台 Mac 的 `AGENTS.md`、`~/.codex/skills`、`~/.agents/skills`、automation 模板收集到 `incoming/`，方便之後比較與合併。確認要保留哪些差異後，再把需要的檔案合併回 `skills/`、`agents-skills/` 或 `AGENTS.md`。
+這會把另一台 Mac 的 `AGENTS.md`、`~/.codex/skills`、`~/.agents/skills`、automation 模板與可攜工具包收集到 `incoming/`，方便之後比較與合併。確認要保留哪些差異後，再把需要的檔案合併回 `skills/`、`agents-skills/`、`automations-templates/`、`automation-tools/` 或 `AGENTS.md`。
 
 只有在合併完成、repo 已確認是你要的版本之後，才執行：
 
