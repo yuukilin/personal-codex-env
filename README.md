@@ -45,10 +45,11 @@ shell_snapshots/
 安裝後需要手動處理：
 
 1. 登入 Codex。
-2. 依照 `config.template.toml` 建立或調整 `~/.codex/config.toml`。
-3. 重新設定 Obsidian MCP 的 API key。
-4. 確認 Obsidian vault 路徑。
-5. 只在一台 Mac 啟用 automations。
+2. 執行 `./scripts/setup-obsidian-mcp.sh`，把 Obsidian MCP server 複製到 `~/.codex/mcp/` 並重新簽章。
+3. 依照 `config.template.toml` 建立或調整 `~/.codex/config.toml`。
+4. 確認 Obsidian Local REST API 的 API key 與 vault 路徑。
+5. 重新啟動 Codex，讓 MCP tools 重新載入。
+6. 只在一台 Mac 啟用 automations。
 
 ## 更新流程
 

@@ -44,8 +44,9 @@ writable_roots = [
 memories = true
 js_repl = false
 
+# Run `./scripts/setup-obsidian-mcp.sh` on each Mac before launching Codex.
 [mcp_servers.obsidian-mcp-tools]
-command = "/Users/YOUR_USERNAME/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板/.obsidian/plugins/mcp-tools/bin/mcp-server"
+command = "/Users/YOUR_USERNAME/.codex/mcp/obsidian-mcp-tools/mcp-server"
 default_tools_approval_mode = "auto"
 tool_timeout_sec = 120
 
@@ -61,4 +62,3 @@ startup_timeout_sec = 120
 [mcp_servers.node_repl.env]
 CODEX_HOME = "/Users/YOUR_USERNAME/.codex"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
-

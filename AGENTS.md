@@ -34,6 +34,7 @@
 ## Obsidian
 
 - 需要讀寫 Obsidian 時，優先使用 Obsidian MCP；若本回合未提供該工具，先用工具搜尋載入 `obsidian mcp tools` / `mcp__obsidian_mcp_tools`，再判斷不可用並說明限制。
+- 若 Obsidian MCP 搜尋後仍未露出，不要只回答「OB 沒露出」。先檢查 `~/.codex/mcp/obsidian-mcp-tools/mcp-server` 是否存在且簽章有效；若不存在或簽章壞，優先執行 `~/Documents/Codex/personal-codex-env/scripts/setup-obsidian-mcp.sh` 修復。修復前可用本機 vault 路徑讀寫作為 fallback，並清楚說明限制。
 - 新筆記檔名：`YYYY-MM-DD-主題.md`。
 - frontmatter 至少包含：`date`, `tags`, `source`, `status: draft`。
 - tags 使用英文小寫。內容繁體中文。使用 `[[wikilink]]`。

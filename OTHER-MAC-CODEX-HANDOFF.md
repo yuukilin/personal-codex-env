@@ -73,3 +73,22 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
 - 分支已經存在。
 
 遇到這些都不要自己亂按，直接把錯誤貼回來。
+
+
+## 讓另一台 Mac 啟用 Obsidian MCP
+
+如果另一台 Mac 已經套用這個 repo，還需要在那台 Mac 本機建立自己的 Obsidian MCP server。不要同步 `~/.codex/mcp/` 裡的 binary，也不要同步真實 `config.toml` 或 API key。
+
+在另一台 Mac 的 repo 目錄執行：
+
+```bash
+./scripts/setup-obsidian-mcp.sh
+```
+
+如果 vault 不在預設路徑，改用：
+
+```bash
+OBSIDIAN_VAULT_PATH="/你的/Obsidian/vault/路徑" ./scripts/setup-obsidian-mcp.sh
+```
+
+完成後重開 Codex。這樣每台 Mac 都使用自己的 `~/.codex/mcp/obsidian-mcp-tools/mcp-server`，不會互相覆蓋。

@@ -21,3 +21,4 @@ fi
 echo "Installed Codex rules and skills from ${REPO_ROOT}"
 echo "Preserved Codex system skills under ${HOME}/.codex/skills/.system when present."
 echo "Restart Codex if the skill list does not refresh immediately."
+echo "For Obsidian MCP on this Mac, run: ${REPO_ROOT}/scripts/setup-obsidian-mcp.sh"
