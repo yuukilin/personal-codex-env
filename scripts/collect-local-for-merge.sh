@@ -39,6 +39,19 @@ if [ -d "${HOME}/.codex/automations" ]; then
   done
 fi
 
+TRACKER_SRC="${HOME}/.codex/automations/component-market-tracker"
+
+if [ -d "${TRACKER_SRC}" ]; then
+  mkdir -p "${OUT_DIR}/automation-tools/component-market-tracker"
+  rsync -a \
+    --exclude '.DS_Store' \
+    --exclude '__pycache__' \
+    --exclude 'runs/' \
+    --exclude 'reports/' \
+    --exclude 'snapshots/' \
+    "${TRACKER_SRC}/" "${OUT_DIR}/automation-tools/component-market-tracker/"
+fi
+
 cat > "${OUT_DIR}/README.md" <<EOF
 # Incoming Codex environment snapshot
 
