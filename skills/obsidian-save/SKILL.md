@@ -76,6 +76,13 @@ list_vault_files("3 MOC/Tickers/")    → 取得所有 Ticker 總整理頁面
 
 Obsidian 的未解析連結（unresolved link）是功能不是 bug，它幫助使用者在 Graph View 中看到哪些頁面值得建立。
 
+### Markdown 表格防呆（強制）
+
+- 一般正文可以使用 alias wikilink，但 Markdown 表格儲存格內禁止使用帶 alias 的 Obsidian wikilink，例如 `[[6525.TW|捷敏-KY]]`。其中的 `|` 會被 Markdown 表格解析成欄位分隔符，導致表格破裂。
+- 表格內若需要顯示公司名稱，改用純文字，例如 `捷敏-KY（6525.TW）`；若一定要連結，只用不含 alias 的 wikilink，例如 `[[6525.TW-研究總整理]]`。
+- 需要漂亮顯示名稱時，把 alias wikilink 放在表格外的補充段落或列表中，例如 `相關標的：[[6525.TW|捷敏-KY]]`。
+- 寫完含表格的 Obsidian 筆記後，自我檢查每一列的欄位數一致，且表格儲存格內沒有 `[[...|...]]`。
+
 ### Step 6：自動建立新 Theme 卡片和 Ticker 頁面
 
 **6A. 防重複比對（最關鍵）**
@@ -259,6 +266,7 @@ SORT date DESC
 2. 主筆記 frontmatter 的 `tickers` 格式是否正確（美股純 ticker，台股 .TW）
 3. 正文中的 wikilink 格式是否一致
 4. 沒有建立語意重複的 Theme 或 Ticker 頁面
+5. 若正文含 Markdown 表格，確認表格儲存格內沒有 `[[...|...]]`，且每一列表格欄位數一致
 
 ---
 
