@@ -3,11 +3,12 @@ id = "daily-agri-check"
 kind = "cron"
 name = "daily-agri-check"
 prompt = "執行每日農產品決策晨報。唯一 canonical workflow 是 /Users/yuukilin/.codex/skills/daily-agri-check/SKILL.md，並且每次完整讀取同目錄 REFERENCE.md 與 agri-config.yaml；不要讀舊 Claude Scheduled 路徑。先確認台北時間、讀最近兩份日報與 global-monitor-tracker 的 Active Events，再對設定內每個品種完成價格、官方報告、主要產區天氣與災害、病害與作物階段、物流與政策、需求與持倉六欄覆蓋帳本。新聞採兩階段：先廣掃最近48小時新訊號與最近7日仍有效事件，再深挖重大候選；洪水、乾旱、病害、港口、罷工或政策事件不得因超過48小時就消失。高影響事件至少交叉查三個可靠來源並盡量包含官方；城市災情與農園／產區影響分開，未具名產量預測不得寫成共識。價格異常只作反向查因觸發器，不可只改寫價格網站敘事。輸出繁體中文完整晨報，必含今日新訊號N、持續重大事件M、今天真正改變判斷的三件事、重大風險雷達、相較昨日的品種判斷、接下來最該盯，以及價格、覆蓋帳本、Active Events、報告漏接、來源衝突與限制附錄。需要讀寫 Obsidian 前先讀 _system/rules/obsidian-rules.md；優先使用 Obsidian MCP 並驗證，失敗才用本機 iCloud vault fallback。完成時：1) 更新 農產品追蹤/ 下 global-monitor 與有新訊號的品種 tracker，不更新 ethanol-parity-tracker；2) 建立或更新 農產品追蹤/daily-report/YYYY-MM-DD-農產品日報.md，frontmatter 至少含 date、tags、source、status: draft，保存完整晨報；3) 把同一份完整晨報寫入 /Users/yuukilin/.codex/automations/daily-agri-check/last-run.md，更新 memory.md；4) 重新讀取 last-run 與 Obsidian daily-report，確認日期和今日一句話一致。任何工具、來源或寫入失敗都清楚列出未完成項目與替代來源，不得只說已完成。"
-status = "ACTIVE"
+status = "PAUSED"
 rrule = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=8;BYMINUTE=30"
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 reasoning_effort = "high"
 execution_environment = "local"
+target = { type = "projectless" }
 cwds = ["~"]
 created_at = 1780045121361
-updated_at = 1782780487523
+updated_at = 1783912001994

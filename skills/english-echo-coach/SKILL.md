@@ -24,7 +24,11 @@ Project root:
 - Follow `/Users/yuukilin/Documents/English/curriculum/correction-policy.md`: delayed correction for free interaction, short immediate correction for Echo target sentences, and one must-fix item per turn by default.
 - Explain grammar only when the error repeats, blocks understanding, belongs to today's target sentence, or the user asks why. Use one brief explanation and immediately ask the user to retry.
 - Always leave exactly one "next required sentence" at closeout.
-- If multiple lessons happen on the same day, keep only one primary next required sentence. Put other high-value sentences into `review-queue.md` as same-day backups or regular review items.
+- At lesson start, quiz the one primary next required sentence and at most one due old sentence. Schedule old sentences at roughly day 1, 3, 7, and 14 based on actual recall results.
+- For Echo targets, use three passes: immediate imitation, delayed recall, and a personalized version.
+- Keep A/B/C/D distinct: A is Echo, B is sustained scenario conversation, C repairs one recurring issue, and D integrates listening or reading, oral summary, short writing, and an oral retell.
+- Keep speaking primary. Use D at most once every 7 days and run a personal progress benchmark about once a month.
+- If multiple lessons happen on the same day, keep only one primary next required sentence. Put other high-value sentences into `review-queue.md` as due or candidate review items.
 - Only perform final durable lesson closeout when the user returns a `語音課同步卡` and says `同步語音課`, or when an explicitly requested Codex text lesson ends with `下課`.
 - During Codex text fallback lessons, do not write files after each response, Echo segment, or correction. Keep notes in the conversation and write files once during `下課`.
 - During explicitly requested Codex text fallback lessons, write `/Users/yuukilin/Documents/English/state/current-session.md` mid-lesson only if the user explicitly asks to save or back up the current state.
@@ -40,6 +44,8 @@ Read these before generating a voice start card or starting an explicitly reques
 4. `/Users/yuukilin/Documents/English/materials/youtube-channels.md`
 5. `/Users/yuukilin/Documents/English/curriculum/correction-policy.md`
 6. `/Users/yuukilin/Documents/English/curriculum/voice-sync-protocol.md`
+7. `/Users/yuukilin/Documents/English/curriculum/integrated-lesson-protocol.md` when D is selected
+8. `/Users/yuukilin/Documents/English/curriculum/progress-assessment.md` and `state/progress-benchmarks.md` when the benchmark is due
 
 If the user provides a new link, text, transcript, or report excerpt in the current message, prioritize that material over stored channels.
 
@@ -52,13 +58,17 @@ When the user says `開始英文課`, `開始學英文`, `開始課程`, `開始
 ```text
 語音課開課卡
 日期：
-建議課型：A Echo 課 / B 情境對話課 / C 修補課
+建議課型：A Echo 課 / B 情境對話課 / C 修補課 / D 整合課
 下次必考句：
 中文情境：
+到期舊句：
+舊句中文情境：
 目前卡住點：
 今天建議練法：
+今日整合任務：無 / 聽或讀 → 口頭摘要 → 80 到 120 字短寫作 → 不照稿再口述
+月度基準：未到期 / 到期（90 秒日常、90 秒投資、60 到 90 秒聽力＋3 題＋摘要）
 
-請先考我「下次必考句」。如果我答對，就照建議課型繼續；如果我卡住，先短修一次，再換一個新情境讓我重講。
+請依序考我「下次必考句」與「到期舊句」。如果我答對，就照建議課型繼續；如果我卡住，先短修一次，再換一個新情境讓我重講。
 ```
 
 Tell the user to paste the card into the ChatGPT Voice conversation that already has `templates/voice-app-prompt.md` configured.
@@ -71,9 +81,11 @@ When the user says `同步語音課`, `同步手機語音課`, or asks to record
 2. Parse the pasted `語音課同步卡`.
 3. Update `state/session-log.md`, `state/review-queue.md`, `state/course-state.json`, and `state/current-session.md`.
 4. Keep exactly one next required sentence.
-5. If a same-day lesson already has a next required sentence, choose the better one as primary and move the other to the review queue.
-6. Mark `state/current-session.md` as no active lesson and record the latest completed voice lesson summary.
-7. Reply briefly with the recorded topic, next required sentence, and next suggestion.
+5. Use the sync card's independent / with-hint / stuck result to advance, hold, or reset the due-old review interval.
+6. If a same-day lesson already has a next required sentence, choose the better one as primary and move the other to the review queue.
+7. If D or the monthly benchmark was completed, update the corresponding dates and `state/progress-benchmarks.md`.
+8. Mark `state/current-session.md` as no active lesson and record the latest completed voice lesson summary.
+9. Reply briefly with the recorded topic, next required sentence, and next suggestion.
 
 ## Codex Text Lesson Fallback
 
@@ -83,7 +95,7 @@ Use this workflow only when the user explicitly asks to practice inside Codex in
 
 ### 1. Recall
 
-If `state/review-queue.md` has a next required sentence, quiz it first:
+If `state/review-queue.md` has a next required sentence, quiz it first, then quiz at most one due old sentence:
 
 - Give the Chinese meaning or situation.
 - Ask the user to type the English sentence.
@@ -113,16 +125,19 @@ Choose 1 to 3 sentences. For each:
 - Show the original English.
 - Give the Traditional Chinese meaning.
 - Point out stress, pause, or tone only if useful.
+- Ask for immediate imitation.
+- After a short interaction, ask for recall without looking.
 - Ask the user to rewrite it into their own sentence.
 - Use the user's rewritten sentence in a short interaction.
 
 ### 4. Interaction
 
-Mix topics according to user preference:
+Follow the selected lesson type:
 
-- Daily English: casual conversation, travel, coffee, work, friends.
-- Investment English: market view, report takeaway, bull/bear case, earnings-call style questions.
-- Dating/flirting English: dating apps, friend introductions, real-life approaches, travel encounters, playful but respectful flirting.
+- A: 1 to 3 three-pass Echo targets plus short interaction.
+- B: at least 4 to 6 conversational turns; do not force a full Echo block. When practical, elicit one 45 to 90 second answer.
+- C: repair one recurring issue, transfer it to two new contexts, and test it again after a delay.
+- D: follow `curriculum/integrated-lesson-protocol.md`.
 
 Use English questions but keep process guidance in Traditional Chinese.
 
@@ -172,6 +187,8 @@ Closeout response should include:
 - 今天重點
 - 下次必考 1 句
 - 下次建議
+
+Choose the next required sentence for transfer value: short, natural, personal, and reusable across contexts, preferably about 8 to 15 English words. If the sentence must be longer, store a chunking hint.
 
 ## References
 

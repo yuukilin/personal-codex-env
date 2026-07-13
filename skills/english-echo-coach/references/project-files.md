@@ -10,4 +10,7 @@ Use these files as durable memory for the English Echo Coach project.
 - `/Users/yuukilin/Documents/English/curriculum/course-protocol.md`: Voice-first start-card workflow, with Codex text lesson fallback.
 - `/Users/yuukilin/Documents/English/curriculum/correction-policy.md`: feedback timing, correction budget, and grammar explanation rules.
 - `/Users/yuukilin/Documents/English/curriculum/voice-sync-protocol.md`: how to import ChatGPT App voice lesson sync cards.
+- `/Users/yuukilin/Documents/English/curriculum/integrated-lesson-protocol.md`: D lesson workflow for listening/reading, oral summary, short writing, and oral retell.
+- `/Users/yuukilin/Documents/English/curriculum/progress-assessment.md`: monthly personal benchmark procedure.
+- `/Users/yuukilin/Documents/English/state/progress-benchmarks.md`: durable monthly comparison log.
 - `/Users/yuukilin/Documents/English/curriculum/topic-pools.md`: daily, investment, and dating/flirting topic pools.
