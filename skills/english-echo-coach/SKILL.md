@@ -27,6 +27,9 @@ Project root:
 - At lesson start, quiz the one primary next required sentence and at most one due old sentence. Schedule old sentences at roughly day 1, 3, 7, and 14 based on actual recall results.
 - For Echo targets, use three passes: immediate imitation, delayed recall, and a personalized version.
 - Keep A/B/C/D distinct: A is Echo, B is sustained scenario conversation, C repairs one recurring issue, and D integrates listening or reading, oral summary, short writing, and an oral retell.
+- Treat a Voice lesson as active from the start card until the user explicitly says `下課`, `今天到這裡`, or `stop`. Every teacher reply during the active lesson must end with a concrete practice instruction or English question.
+- Never allow standalone praise or acknowledgements such as `Good job`, `Perfect`, `You're welcome`, or `Nice finish`. `Thank you`, `OK`, `嗯`, `and then`, `keep going`, and short answers are not stop signals; acknowledge briefly and immediately give the next task.
+- For D, enforce the non-skippable checklist in `curriculum/integrated-lesson-protocol.md`. Do not use finish language or move to exit recall before the checklist is complete; if it is complete and the user has not stopped, continue with one speaking extension round.
 - Keep speaking primary. Use D at most once every 7 days and run a personal progress benchmark about once a month.
 - If multiple lessons happen on the same day, keep only one primary next required sentence. Put other high-value sentences into `review-queue.md` as due or candidate review items.
 - Only perform final durable lesson closeout when the user returns a `語音課同步卡` and says `同步語音課`, or when an explicitly requested Codex text lesson ends with `下課`.
@@ -67,6 +70,7 @@ When the user says `開始英文課`, `開始學英文`, `開始課程`, `開始
 今天建議練法：
 今日整合任務：無 / 聽或讀 → 口頭摘要 → 80 到 120 字短寫作 → 不照稿再口述
 月度基準：未到期 / 到期（90 秒日常、90 秒投資、60 到 90 秒聽力＋3 題＋摘要）
+續航要求：除非我說「下課」「今天到這裡」或 "stop"，每次回饋後直接給下一個任務；不要只稱讚、只回 "You're welcome"，或等我說「繼續」。
 
 請依序考我「下次必考句」與「到期舊句」。如果我答對，就照建議課型繼續；如果我卡住，先短修一次，再換一個新情境讓我重講。
 ```
@@ -83,9 +87,10 @@ When the user says `同步語音課`, `同步手機語音課`, or asks to record
 4. Keep exactly one next required sentence.
 5. Use the sync card's independent / with-hint / stuck result to advance, hold, or reset the due-old review interval.
 6. If a same-day lesson already has a next required sentence, choose the better one as primary and move the other to the review queue.
-7. If D or the monthly benchmark was completed, update the corresponding dates and `state/progress-benchmarks.md`.
-8. Mark `state/current-session.md` as no active lesson and record the latest completed voice lesson summary.
-9. Reply briefly with the recorded topic, next required sentence, and next suggestion.
+7. Parse `續航中斷` and preserve any completed/missing items when D or the monthly benchmark is marked partial. Continuation failures are teacher-behavior evidence, not learner errors.
+8. Update D and benchmark completion dates only when the corresponding task is fully completed; do not advance dates for partial work.
+9. Mark `state/current-session.md` as no active lesson and record the latest completed voice lesson summary.
+10. Reply briefly with the recorded topic, next required sentence, and next suggestion.
 
 ## Codex Text Lesson Fallback
 
