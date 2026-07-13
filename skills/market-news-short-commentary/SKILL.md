@@ -2,9 +2,8 @@
 name: market-news-short-commentary
 description: >
   搜尋指定日期區間的投資市場重要事件候選新聞，讓使用者挑選後，依使用者貼上的新聞 URL 或文字撰寫一則約 200 字的繁體中文短評。
-  Use when the user says 幫我找新聞、找新聞、抓新聞、搜尋新聞、新聞候選、照週報新聞，or asks to 抓/找/搜尋上週或某日期區間的財金新聞、
+  Use when the user says 幫我找新聞、找新聞、抓新聞、搜尋新聞、新聞候選，or asks to 抓/找/搜尋上週或某日期區間的財金新聞、
   市場重要事件、投資市場新聞、週報新聞候選、10 則新聞，or asks to turn selected news links into one short commentary each.
-  Also use when the user pastes a news article, URL, or selected market event and says 寫新聞; write it in the fixed 週報新聞短評 format.
   Do not use for normal weekly-report PPT bullet writing unless the user asks for news search or short評.
 ---
 
@@ -17,7 +16,7 @@ description: >
 1. 候選新聞模式：使用者給日期區間，先搜尋並列出約 10 則可寫成週報短評的投資市場事件。
 2. 短評撰寫模式：使用者挑完後貼 URL 或原文，將每則新聞寫成一則約 200 字短評。
 
-不要把這個 skill 當成一般 `weekly-report` 使用。若使用者只是說「寫週報」且已提供完整研報、PDF 或文章，要使用 `weekly-report`；只有當使用者要「找新聞候選」、「抓某段時間市場事件」、「每個新聞一個短評」、「照週報新聞」，或貼新聞內文/URL 後說「寫新聞」時才使用本 skill。
+不要把這個 skill 當成一般 `weekly-report` 使用。若使用者只是說「寫週報」且已提供完整研報、PDF 或文章，要使用 `weekly-report`；只有當使用者要「找新聞候選」、「抓某段時間市場事件」、「每個新聞一個短評」時才使用本 skill。
 
 ## 日期與查證
 
@@ -35,7 +34,6 @@ description: >
 - 「找上週投資市場重要新聞，給我 10 則」
 - 「幫我找新聞」
 - 「找新聞」
-- 「照週報新聞」
 - 「這週市場大事先列出來，我挑」
 
 執行方式：
@@ -83,7 +81,7 @@ description: >
 
 ## 短評撰寫模式
 
-使用者挑完後可能貼 1 個或多個 URL、貼新聞全文、或直接列出已選事件。若使用者貼新聞內文、URL 或已選事件後說「寫新聞」，也進入此模式，並照下方固定格式寫。此時：
+使用者挑完後可能貼 1 個或多個 URL、貼新聞全文、或直接列出已選事件。此時：
 
 1. 逐一讀取使用者提供的 URL 或文字；若使用者只列事件或要求再查證，先搜尋並確認該事件的一手來源或可靠媒體。若使用者指定只能用貼上的 URL，則不要自行找替代來源。
 2. 一個新聞寫一個短評。若多個 URL 是同一事件，只有在使用者要求合併時才合併。

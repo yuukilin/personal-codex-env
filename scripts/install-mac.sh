@@ -28,6 +28,9 @@ if [ -d "${REPO_ROOT}/automation-tools" ]; then
     rsync -a --delete \
       --exclude '.DS_Store' \
       --exclude '__pycache__' \
+      --exclude 'runs/' \
+      --exclude 'reports/' \
+      --exclude 'snapshots/' \
       "${tool_dir}/" "${HOME}/.codex/automations/${name}/"
   done
 fi

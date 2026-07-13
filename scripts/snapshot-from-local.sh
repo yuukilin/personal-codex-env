@@ -21,7 +21,8 @@ if [ -d "${HOME}/.agents/skills" ]; then
 fi
 
 if [ -d "${HOME}/.codex/automations" ]; then
-  find "${REPO_ROOT}/automations-templates" -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} +
+  # Live schedules are host-specific and may be paused or intentionally absent
+  # on this Mac. Preserve repo-only templates; explicit deletion must be manual.
   for file in "${HOME}"/.codex/automations/*/automation.toml; do
     [ -e "${file}" ] || continue
     name="$(basename "$(dirname "${file}")")"
