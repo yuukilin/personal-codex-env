@@ -5,7 +5,7 @@ name = "report-intake-auto"
 prompt = "執行研究報告收件夾整理。讀取並遵守 live skill /Users/yuukilin/.codex/skills/report-intake/SKILL.md，掃描 /Users/yuukilin/Desktop/報告收件夾，為新增研究報告建立 Obsidian 索引筆記，更新必要 MOC、Theme 卡片與 Ticker 連結。Obsidian 輸出只使用 Obsidian規則：定錨寫入 2 Sources/定錨/，外部研究報告寫入 2 Sources/Reports/，Codex/Claude 自主研究寫入 2 Sources/Research/，原始檔案歸檔到 Attachments/。禁止寫入或新建根目錄 TW-Earnings/、法說會/、0 Inbox/pending-analysis/、03-投資研究/、2 Sources/Transcripts/、2 Sources/Articles/。不要使用舊 Cowork 目錄掛載工具；若 Obsidian MCP 工具未露出，先用 tool_search 搜尋 obsidian mcp tools 載入並用 get_server_info 驗證；若桌面資料夾、Obsidian MCP 或本機 vault 寫入權限不可用，清楚說明限制。最後務必將處理檔案清單、建立筆記清單、錯誤與後續動作寫入 /Users/yuukilin/.codex/automations/report-intake-auto/last-run.md，並更新 /Users/yuukilin/.codex/automations/report-intake-auto/memory.md，方便之後在 automation thread 之外查看結果。"
 status = "ACTIVE"
 rrule = "RRULE:FREQ=WEEKLY;BYHOUR=22;BYMINUTE=0;BYDAY=SU"
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 reasoning_effort = "high"
 execution_environment = "local"
 target = { type = "project", project_id = "/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板" }
