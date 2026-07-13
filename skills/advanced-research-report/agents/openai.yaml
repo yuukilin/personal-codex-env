@@ -1,6 +1,6 @@
 interface:
   display_name: "進階研究報告"
-  short_description: "結合財報狗最新資料與OB產出買賣決策型公司研究報告"
-  default_prompt: "Use $advanced-research-report to evaluate whether I should buy, hold, add, trim, or sell a company based on latest data and my Obsidian research."
+  short_description: "深入拆解個股與商品催化劑、財務或供需傳導及買賣判斷"
+  default_prompt: "使用 $advanced-research-report 深入研究這個標的最近的核心催化劑、長期結構、數字影響與買賣判斷。"
 policy:
   allow_implicit_invocation: true
