@@ -1,13 +1,21 @@
 ticker_map:
-  sugar: {code: SB, ticker: SBN26, label: 糖SB Jul, unit: c/lb, exchange: ICE, url_path: sugar}
-  corn: {code: ZC, ticker: ZCN26, label: 玉米ZC Jul, unit: c/bu, exchange: CBOT, url_path: corn}
-  wheat: {code: ZW, ticker: ZWN26, label: 小麥ZW Jul, unit: c/bu, exchange: CBOT, url_path: wheat}
-  soybeans: {code: ZS, ticker: ZSN26, label: 大豆ZS Jul, unit: c/bu, exchange: CBOT, url_path: soybeans}
-  cotton: {code: CT, ticker: CTN26, label: 棉花CT Jul, unit: c/lb, exchange: ICE, url_path: cotton}
-  coffee: {code: KC, ticker: KCN26, label: 咖啡KC Jul, unit: c/lb, exchange: ICE, url_path: coffee}
-  cocoa: {code: CC, ticker: CCN26, label: 可可CC Jul, unit: USD/t, exchange: ICE, url_path: cocoa}
+  sugar: {code: SB, ticker: SBN26, label: 糖SB, unit: c/lb, exchange: ICE, url_path: sugar}
+  corn: {code: ZC, ticker: ZCN26, label: 玉米ZC, unit: c/bu, exchange: CBOT, url_path: corn}
+  wheat: {code: ZW, ticker: ZWN26, label: 小麥ZW, unit: c/bu, exchange: CBOT, url_path: wheat}
+  soybeans: {code: ZS, ticker: ZSN26, label: 大豆ZS, unit: c/bu, exchange: CBOT, url_path: soybeans}
+  cotton: {code: CT, ticker: CTN26, label: 棉花CT, unit: c/lb, exchange: ICE, url_path: cotton}
+  coffee: {code: KC, ticker: KCN26, label: 咖啡KC, unit: c/lb, exchange: ICE, url_path: coffee}
+  cocoa: {code: CC, ticker: CCN26, label: 可可CC, unit: USD/t, exchange: ICE, url_path: cocoa}
   palm_oil: {code: FCPO, ticker: FCPO, label: 棕櫚油FCPO, unit: MYR/t, exchange: BMD, url_path: palm-oil}
-  crude_oil: {code: CL, ticker: CLN26, label: WTI原油CL Jul, unit: USD/bbl, exchange: NYMEX, url_path: crude-oil}
+  crude_oil: {code: CL, ticker: CLN26, label: WTI原油CL, unit: USD/bbl, exchange: NYMEX, url_path: crude-oil}
+
+contract_policy:
+  fallback_tickers_are_hints_only: true
+  verify_front_month_each_run: true
+  require_nonzero_volume: true
+  require_future_last_trade_date: true
+  show_quote_session_date: true
+  roll_sequence: [F, H, K, N, Q, U, V, X, Z]
 
 paths:
   vault_agri_root: "/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板/農產品追蹤"
@@ -23,6 +31,39 @@ required_trackers:
   - global-monitor-tracker.md
   - palm-oil-tracker.md
   - crop-progress-tracker.md
+  - cocoa-tracker.md
+  - coffee-tracker.md
+  - cotton-tracker.md
+  - wasde-tracker.md
+  - plantings-stocks-tracker.md
+  - export-sales-tracker.md
+  - drought-monitor-tracker.md
+
+event_monitor:
+  fresh_signal_hours: 48
+  active_event_lookback_days: 7
+  headline_score: 8
+  radar_score: 6
+  require_official_for_high_impact: true
+  high_impact_min_independent_sources: 3
+  statuses: [new, worsening, unchanged, easing, closed]
+
+price_anomaly_thresholds_daily_pct:
+  sugar: 3.0
+  corn: 3.0
+  wheat: 3.0
+  soybeans: 3.0
+  cotton: 3.0
+  coffee: 5.0
+  cocoa: 5.0
+  palm_oil: 3.0
+  crude_oil: 4.0
+
+source_policy:
+  discovery_only: [Trading Economics, Barchart, social media]
+  high_impact_requires_grade_a_or_explicit_gap: true
+  unnamed_forecasts_cannot_be_consensus: true
+  separate_humanitarian_and_crop_impact: true
 
 sugar_five_factor_dashboard:
   - id: 1

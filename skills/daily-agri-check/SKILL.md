@@ -1,41 +1,49 @@
 ---
 name: daily-agri-check
-description: 每日農產品日報：價格+新聞+報告+綜合判斷（v3 優化版）
+description: 每日農產品決策晨報：系統檢查價格、官方報告、主要產區天氣與災害、病害、物流、政策、持倉及供需轉折，產出繁體中文可讀日報並更新 Obsidian tracker。使用者要求每日農產品日報、農產品晨報、農產品檢查、重跑農產品報告，或追問日報漏掉重要農業事件時，都要使用此 skill。
 ---
 
-你是農產品追蹤分析師。每天早上產出農產品日報。
-詳細模板、鮮度檢查表、參考知識優先讀取同目錄 `REFERENCE.md`；若同目錄沒有 `REFERENCE.md`，直接使用本檔的 Fallback 規則，不要再讀舊 Claude Scheduled 路徑。
-需要寫入 Obsidian 前，先讀 vault 的 `_system/rules/obsidian-rules.md`，並遵守其中的 Canonical 路由、frontmatter 與禁止寫入規則。
+每天產出能支援判斷的農產品晨報。目標不是羅列新聞，而是找出「哪個新事實改變供需、何時影響產量、證據有多硬、接下來看什麼確認」。
+
+## 每次必讀
+
+1. 先完整讀取本檔。
+2. 再完整讀取同目錄 `REFERENCE.md`；它包含產區矩陣、來源分級、事件評分、排程與輸出模板。
+3. 讀取同目錄 `agri-config.yaml`；檔案缺失時才使用本檔 fallback，不要搜尋舊 Claude Scheduled 路徑。
+4. 需要讀寫 Obsidian 前，先讀 vault `_system/rules/obsidian-rules.md`，只在 `農產品追蹤/` 更新 tracker 與每日備份。
 
 ## Codex 相容性
 
-- 原本寫作 `Read` 的地方，代表讀取本 skill 目錄內的參考檔；在 Codex 中用可用的本機讀檔方式。
-- 原本寫作 Chrome MCP 的地方，在 Codex 中優先用 `tool_search` 搜尋 `browser chrome control` 載入 Browser/Chrome 控制工具；若只露出 `node_repl`，可用其搭配可用瀏覽器套件做 DOM 抽取。只有工具搜尋與載入都失敗，才改用一般 web search / fetch，並在限制中說明。公開靜態頁可直接用 web fetch；登入、動態圖表、反爬或金融機構官網才需要瀏覽器。
-- 原本寫作 `web_search` 的地方，代表使用 Codex 可用的網路搜尋工具，且必須附來源。
-- 需要更新 Obsidian tracker 或建立每日備份時，優先使用 Obsidian MCP；若工具清單未露出，先用 `tool_search` 搜尋 `obsidian mcp tools` 載入 `mcp__obsidian_mcp_tools`，並呼叫 `get_server_info` 驗證。只有載入或驗證失敗時，才明確告知限制，並在可寫的本機 iCloud vault 路徑 fallback。
+- 動態、登入、反爬或金融／產業資料頁優先使用 Browser/Chrome；工具未露出時先搜尋載入。公開靜態頁可直接用網路搜尋／讀取。
+- Obsidian 優先使用 MCP 並先驗證 `get_server_info`；MCP 不可用但本機 vault 可寫時，才使用本機路徑 fallback，並在限制中說明。
+- 高時效、高影響事件至少交叉查三個可靠來源，其中盡量包含官方或第一手來源。一般市場敘事不可取代原始資料。
 
-## 核心紀律（3 條，全文適用）
+## 核心紀律
 
-1. **靜默執行**：步驟 1-6 內部工作，對話輸出只有第 6 步完整日報。
-2. **48hr 鮮度門檻**：(a) 媒體發佈日 <= 48hr 且 (b) 原始觀測日 <= 48hr。不符合降級到「中期格局」或刪除。
-3. **不報廢話**：沒新數據的段落整段省略。
+1. **覆蓋先於結論**：先完成全部品種的覆蓋帳本，再決定哪些值得寫。沒寫進主文不等於沒檢查。
+2. **重大性高於48小時**：48小時只決定能否算「今日新訊號」，不能讓仍在發展的洪水、乾旱、病害、罷工或政策事件從報告消失。
+3. **重大事件持續追蹤**：標記為 `new / worsening / unchanged / easing / closed`，每天更新最新官方狀態、有效預報與下一個確認點，直到達成結案條件。
+4. **地理與作物階段必須對齊**：城市淹水不能直接等於農園減產。先確認是否重疊主要產區、道路／港口，以及開花、結莢、收割、乾燥等關鍵階段。
+5. **分開事實與情境**：已發生損害、分析師預測、模型預報與價格敘事分開寫；未具名估計不得寫成共識或官方數字。
+6. **價格只當警報器**：異常漲跌會觸發反向查因，但不能只改寫價格網站的市場敘事當基本面分析。
+7. **沒有新數據就省略，沒有查到就揭露**：禁止用推測補空白；覆蓋失敗、來源衝突、動態頁不可讀都列入限制。
 
 ## Fallback 設定（agri-config.yaml 找不到時直接用）
 
 先嘗試讀取同目錄 agri-config.yaml。讀取失敗或檔案不存在，不要搜尋，直接用以下預設值。
 
-### ticker_map（2026 N 月合約，到期後換 Q/U/V/Z）
-| 中文名 | 代碼 | ticker | 單位 | 交易所 |
-|--------|------|--------|------|--------|
-| 糖 | SB | SBN26 | c/lb | ICE |
-| 玉米 | ZC | ZCN26 | c/bu | CBOT |
-| 小麥 | ZW | ZWN26 | c/bu | CBOT |
-| 大豆 | ZS | ZSN26 | c/bu | CBOT |
-| 棉花 | CT | CTN26 | c/lb | ICE |
-| 咖啡 | KC | KCN26 | c/lb | ICE |
-| 可可 | CC | CCN26 | $/噸 | ICE |
-| 棕櫚油 | FCPO | FCPO | MYR/噸 | BMD |
-| WTI原油 | CL | CLN26 | $/桶 | NYMEX |
+### ticker_map（只提供代碼與單位；合約月每次動態確認）
+| 中文名 | 代碼 | 單位 | 交易所 |
+|--------|------|------|--------|
+| 糖 | SB | c/lb | ICE |
+| 玉米 | ZC | c/bu | CBOT |
+| 小麥 | ZW | c/bu | CBOT |
+| 大豆 | ZS | c/bu | CBOT |
+| 棉花 | CT | c/lb | ICE |
+| 咖啡 | KC | c/lb | ICE |
+| 可可 | CC | $/噸 | ICE |
+| 棕櫚油 | FCPO | MYR/噸 | BMD |
+| WTI原油 | CL | $/桶 | NYMEX |
 
 ### 五因素 Dashboard（糖市專用）
 | # | 因素 | 偏多觸發條件 |
@@ -51,67 +59,71 @@ CEPEA(US$/m3) x 0.030 + 2.5 = 公式平價 (c/lb)
 
 ---
 
-## 執行步驟（7 步）
+## 執行步驟（8 步）
 
-### Step 1：準備
+### Step 1：建立今日基準
 ```bash
-TZ=Asia/Taipei date +%Y-%m-%d\ %A
+TZ=Asia/Taipei date +%Y-%m-%d\ %A\ %H:%M:%S
 ```
-記下日期、星期、48hr 起算點。
+記下48小時與7日事件回看起點。
 
-讀取 Obsidian tracker（每天必讀）：
-- enso-tracker：記 ENSO/IOD 狀態、last_ENSO_update、last_IOD_update
-- sugar-tracker：記五因素亮燈數
-- ethanol-parity-tracker：記最新 CEPEA、公式平價、ICE 糖價、差距
-- global-monitor-tracker：記 last_update
+- 讀最近兩份每日報告，列出昨天的主要判斷、未完成項目與應續追事件。
+- 讀 `global-monitor-tracker` 的 `Active Events`，以及各品種 `Latest Data`；只在需要比對時讀長篇 History／News Log。
+- 讀 `ethanol-parity-tracker` 作為背景，但不得更新。
+- 建立覆蓋帳本：每個品種至少包含價格、官方報告、主要產區天氣／災害、病害／作物階段、物流／政策、持倉／需求六欄，狀態只能是 `checked / new / active / unavailable / not-due`。
 
-**Token 節約**：只讀 frontmatter + Latest Data 區塊。不讀整份 News Log 和 History（需要交叉比對時才讀特定 section）。
+### Step 2：官方報告與漏接檢查
 
-### Step 2：報告搜尋 + 漏接檢查
-查 REFERENCE.md 報告排程表，判斷哪些報告在搜尋窗口。搜到後確認發佈日期 > tracker last_update 才算新數據。
-合併規則：CONAB 一次搜穀物+咖啡+糖、WASDE 覆蓋穀物+糖+棉花。
-漏接判斷：今天 >= 搜尋窗口結束日 + grace_days，且 tracker last_update 仍是上一期 -> 漏接，補搜一次。
-UNICA 判別規則見 REFERENCE.md。
+- 依 `REFERENCE.md` 排程表檢查 USDA、ICCO、ICO、CONAB、UNICA、MPOB、CFTC、NOAA、BOM、IMD及其他品種專屬來源。
+- 報告日期新於 tracker `last_update` 才算新資料。預定發布但尚未出現的報告標示 `scheduled but not yet published`。
+- 超過搜尋窗口與 grace period 且 tracker 仍停在上一期時，補搜一次並列為漏接。
+- 可批次合併同一份報告涵蓋的品種，但每個品種仍要在覆蓋帳本留下結果。
 
 ### Step 3：價格抓取
 
-**主要方法：Trading Economics + JavaScript DOM 提取（零截圖）**
+**主要方法：有效主力合約＋可靠行情來源**
 
-對每個品種，用可用的 Chrome / Browser 工具執行：
-1. navigate 到 `https://tradingeconomics.com/commodity/{name}`
-   - 品種對應 URL path：sugar → sugar, corn → corn, wheat → wheat, soybeans → soybeans, cotton → cotton, coffee → coffee, cocoa → cocoa, crude-oil → crude-oil
-   - 棕櫚油：`https://tradingeconomics.com/commodity/palm-oil`
-2. 用 `javascript_tool` 提取價格（不截圖）：
-```javascript
-// 在 Trading Economics 頁面執行
-const price = document.querySelector('[id="p"]')?.textContent?.trim();
-const change = document.querySelector('[id="changep"]')?.textContent?.trim();
-const pctChange = document.querySelector('[id="pcp"]')?.textContent?.trim();
-JSON.stringify({price, change, pctChange});
-```
-3. 如果 JS 返回 null，fallback 用 `get_page_text` 從文字中提取數字。
-
-**批次策略**：可在同一個 tab 連續 navigate + javascript_tool，不需要每個品種開新 tab。
-
-**Fallback（Trading Economics 失敗時）**：
-用 web_search：`"{commodity} futures price {date} site:barchart.com OR site:investing.com"`
+優先順序：交易所或可確認合約的結算資料 → 可靠行情頁 → Trading Economics CFD／參考價。動態頁需要互動時使用 Browser/Chrome；公開可讀頁可用網路搜尋／讀取。可批次取得多品種，但每筆都保留來源、合約月、報價日期與單位。
 
 **驗證**：抓完後跟 tracker History 最後一行比對。閾值規則見 REFERENCE.md。
 
 **嚴格規則**：
 - 日% 必須從網站讀取，禁止自行計算
-- 品種標示格式：「糖SB Jul」-- 月份必須與 ticker_map 合約月一致
-- 所有價格用收盤/結算價（Settlement）
-- 合約成交量為 0 或已過期時，換下一個月份（N->Q->U->V->Z）
+- 合約月依來源的有效主力合約、成交量與最後交易日確認；不得盲用 config 固定月份
+- 優先使用收盤／結算價；若只能取得CFD／參考價，必須明標，不能稱為交易所結算
+- 合約成交量為 0 或已過期時，依交易所合約序列換到下一個有效月份
+- 週末或休市標示最後交易日，不把舊價格當今日變動
+- 達 `agri-config.yaml` 異常波動門檻時啟動反向查因：至少查官方／第一手來源、主要通訊社或具名研究，以及產區天氣／供需資料，判斷是基本面、部位、流動性或舊聞重播
 
 **COT 持倉**（僅週五/週六）：搜尋最新 CFTC COT。百分位必標明來源。
 
-### Step 4：全球新聞搜尋
-搜尋關鍵字和條件新聞規則見 REFERENCE.md。
-每則新聞格式：`[發佈 MM/DD | obs: YYYY-MM-DD | 標籤] 事件`
-逐條過鮮度檢查表（見 REFERENCE.md）。
+### Step 4：兩階段事件雷達
 
-### Step 5：ENSO/IOD + 綜合判斷
+**Pass A：全面廣掃**
+
+- 依 `REFERENCE.md` 的「品種×產區×風險矩陣」逐品種搜尋最近48小時新聞，以及最近7日仍有效的天氣、災害、病害、物流、政策與產量預測。
+- 同時掃官方災害／氣象警報。重要農產新聞可能先出現在政府災情、道路、港口或地方氣象資料，而不是商品頁。
+- 對 `Active Events` 逐一查最新狀態，不因今天沒有新媒體文章就省略。
+
+**Pass B：重大候選深挖**
+
+- 依 `REFERENCE.md` 事件評分選出重大候選，完整讀取來源上下文。
+- 至少回答：哪裡、影響哪個品種、產區重疊度、作物階段、已發生損害、可能傳導、持續多久、量化資料、反證、下一個確認指標。
+- 高影響事件交叉查至少三個來源；若仍無受災面積、產量損失或官方確認，就明說無法量化。
+
+### Step 5：事件資格卡與持續追蹤
+
+對重大事件建立或更新事件卡：
+
+- `event / commodity / regions / crop_stage`
+- `status / event_start / latest_update / forecast_valid_until`
+- `evidence_grade / materiality_score / confidence`
+- `confirmed_damage / scenario_estimates / counterevidence`
+- `transmission_chain / expected_timing / next_check / closure_condition`
+
+事件卡寫入 `global-monitor-tracker` 的 `Active Events`；品種專屬數據再寫入對應 tracker。舊事件有新官方災情、產區擴大、預報延長、分析師下修或反證時，新增部分可以算今日新訊號。
+
+### Step 6：ENSO/IOD 與跨品種判斷
 
 **ENSO 觸發條件**（三個之一滿足才輸出完整段落）：
 (a) NOAA Weekly Update 觀測週日期 > enso-tracker last_ENSO_update
@@ -124,16 +136,20 @@ JSON.stringify({price, change, pctChange});
 - 比較 Nino 1+2/3/3.4/4 判斷類型（東太型/Modoki/Coastal，細則見 REFERENCE.md）
 - 評估糖市影響（印度季風、泰國乾旱、巴西收割干擾）
 
-**IOD**：last_IOD_update <= 48hr 才寫入日報。
+**IOD**：48小時內有新資料才算今日新訊號；較舊但仍有效的官方狀態可放中期格局並標日期。
 交互作用：正IOD 削弱聖嬰衝擊 / 中性維持原判 / 負IOD 最危險（雙重壓制季風）
 
-**綜合判斷**：多點起火計數 + 五因素計數 + 方向總結。
+**綜合判斷**：形成三層結論——今天新增什麼、既有事件變好或變壞、價格已反映多少。ENSO 必須落到實際產區與季節，不使用「聖嬰＝所有農產品上漲」的捷徑。
 
-### Step 6：輸出日報
-計算「今日新訊號 N」= 通過全部鮮度檢查的事件數。
-N=0 用精簡模式，N>=1 用完整模式（模板見 REFERENCE.md）。
+### Step 7：輸出完整晨報
 
-### Step 7：更新 Obsidian Tracker
+- `今日新訊號 N` 只計算符合鮮度規則的新增事實；另列 `持續重大事件 M`。
+- 主文先寫「今天真正改變判斷的三件事」與重大風險雷達，再寫品種方向；價格表、排程、覆蓋帳本與限制放附錄。
+- 事件重大性分數 >= 8 必須進前三重點；>= 6 至少進重大風險雷達，即使價格尚未反應。
+- N=0 代表沒有新事實，不代表沒有重大風險；仍要更新 Active Events。
+- 使用 `REFERENCE.md` 固定模板，全文繁體中文、白話但不失真。
+
+### Step 8：更新、交付與驗證
 
 **批次更新原則（省 token 關鍵）**：
 同一個 tracker 檔案的所有更新合併成盡量少的 patch_vault_file 呼叫。
@@ -156,7 +172,7 @@ N=0 用精簡模式，N>=1 用完整模式（模板見 REFERENCE.md）。
 - sugar-tracker 五因素狀態（如有變化）
 - 不更新 ethanol-parity-tracker（由 ethanol-parity-check 任務負責）
 - 建立每日完整備份檔：`農產品追蹤/daily-report/YYYY-MM-DD-農產品日報.md`
-  - 這份檔案保存 Step 6 的完整晨報，方便之後回溯當天判斷；它不是主要給使用者閱讀的交付物。
+  - 這份檔案保存 Step 7 的完整晨報，方便之後回溯當天判斷；它不是主要給使用者閱讀的交付物。
   - 檔案必須包含 frontmatter：`date`, `tags`, `source`, `status: draft`。
   - 建議 frontmatter：
     ```yaml
@@ -167,8 +183,10 @@ N=0 用精簡模式，N>=1 用完整模式（模板見 REFERENCE.md）。
     status: draft
     ---
     ```
-  - 內文第一段保留 Step 6 完整日報，不要只存摘要。
+  - 內文第一段保留 Step 7 完整日報，不要只存摘要。
   - 若同名檔已存在，先檢查是否為同一天同一輪內容；若只是重跑修正，更新同檔，不要建立 `copy` 或亂加後綴。
-- Tracker section 標題一律用英文（Latest Data, History, Key Background, News Log, Five Factor Dashboard）
+- Tracker section 標題一律用英文（Latest Data, History, Key Background, News Log, Active Events, Five Factor Dashboard）
 
 各 tracker 的欄位細則見 REFERENCE.md。
+
+最後重新讀取三個交付面，確認日期與「今日一句話」一致：聊天主交付、automation `last-run.md`、Obsidian daily-report。任一失敗都列入未完成項目，不得只說「已完成」。
