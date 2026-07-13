@@ -153,7 +153,7 @@ async function scrapeOne(a){
 ```bash
 node /Users/yuukilin/.codex/skills/investanchors-scraper/scripts/classify_and_write.mjs \
   --payload /tmp/investanchors_scrape_payload.json \
-  --state /Users/yuukilin/Documents/Claude/Projects/報告匯流中心/investment-data/sources/investanchors-web/state.json \
+  --state /Users/yuukilin/Desktop/python/investment-data/sources/investanchors-web/state.json \
   --output-dir /Users/yuukilin/Desktop/報告收件夾/定錨產業筆記 \
   --attachments-dir "/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板/Attachments" \
   --result /tmp/investanchors_scrape_result.json \
