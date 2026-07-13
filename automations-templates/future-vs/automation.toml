@@ -10,5 +10,5 @@ reasoning_effort = "xhigh"
 execution_environment = "local"
 target = { type = "project", project_id = "/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板" }
 cwds = ["/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板"]
-created_at = 1782808449860
+created_at = 1783938975406
 updated_at = 1783941270766

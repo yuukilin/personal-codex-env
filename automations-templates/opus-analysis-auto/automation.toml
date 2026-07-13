@@ -11,4 +11,4 @@ execution_environment = "local"
 target = { type = "project", project_id = "/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板" }
 cwds = ["/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板"]
 created_at = 1780724788149
-updated_at = 1783241739202
+updated_at = 1783913089228
