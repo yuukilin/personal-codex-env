@@ -1,0 +1,44 @@
+# GitHub CLI commands that are safe and necessary for unattended workflow dispatch.
+# These commands must run outside the Codex sandbox so gh can read the macOS
+# Keychain and reach GitHub. Keep this list narrow; do not allow all `gh` commands.
+
+prefix_rule(
+    pattern = ["gh", "auth", "status"],
+    decision = "allow",
+    justification = "Allow Codex to verify the local GitHub CLI login stored in macOS Keychain.",
+    match = [
+        "gh auth status",
+        "gh auth status -h github.com",
+    ],
+)
+
+prefix_rule(
+    pattern = ["gh", "workflow", "run"],
+    decision = "allow",
+    justification = "Allow explicitly requested GitHub Actions workflow dispatches.",
+    match = [
+        "gh workflow run video-transcribe.yml",
+        "gh workflow run video-transcribe.yml --repo yuukilin/investment-data",
+    ],
+)
+
+prefix_rule(
+    pattern = ["gh", "workflow", ["list", "view"]],
+    decision = "allow",
+    justification = "Allow read-only inspection of GitHub Actions workflows.",
+    match = [
+        "gh workflow list",
+        "gh workflow view video-transcribe.yml",
+    ],
+)
+
+prefix_rule(
+    pattern = ["gh", "run", ["list", "view", "watch"]],
+    decision = "allow",
+    justification = "Allow read-only inspection and monitoring of GitHub Actions runs.",
+    match = [
+        "gh run list",
+        "gh run view 123456789",
+        "gh run watch 123456789",
+    ],
+)

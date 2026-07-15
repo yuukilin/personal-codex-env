@@ -1,6 +1,6 @@
 # personal-codex-env
 
-這個 repo 用來同步兩台 Mac 的 Codex rules / skills。
+這個 repo 用來同步兩台 Mac 的 Codex guidance、command rules 與 skills。
 
 它只保存可攜帶的文字規則與 skill，不保存登入狀態、API key、session、logs、cache 或本機資料庫。
 
@@ -8,6 +8,7 @@
 
 ```text
 AGENTS.md                 # Codex 全域規則
+rules/                    # 可攜且最小權限的 ~/.codex/rules；不含 token
 skills/                   # ~/.codex/skills 的 user skills，不含 .system
 agents-skills/            # ~/.agents/skills 的遷移 skills
 automations-templates/    # Codex automation 設定模板，只放 automation.toml
@@ -47,12 +48,22 @@ automation raw/reports/snapshots
 安裝後需要手動處理：
 
 1. 登入 Codex。
-2. 執行 `./scripts/setup-obsidian-mcp.sh`，把 Obsidian MCP server 複製到 `~/.codex/mcp/` 並重新簽章。
-3. 依照 `config.template.toml` 建立或調整 `~/.codex/config.toml`。
-4. 確認 Obsidian Local REST API 的 API key 與 vault 路徑。
-5. 重新啟動 Codex，讓 MCP tools 重新載入。
-6. `install-mac.sh` 只會把 automation 模板放到 `~/.codex/automation-templates`，不會自動啟用排程。
-7. 只在一台 Mac 啟用 automations。
+2. 安裝 GitHub CLI 規則：`mkdir -p ~/.codex/rules && cp rules/gh-automation.rules ~/.codex/rules/gh-automation.rules`。
+3. 若要使用 GitHub CLI，執行 `gh auth login`；每台 Mac 各登入一次，權杖只留在各自的 macOS 鑰匙圈。
+4. 執行 `./scripts/setup-obsidian-mcp.sh`，把 Obsidian MCP server 複製到 `~/.codex/mcp/` 並重新簽章。
+5. 依照 `config.template.toml` 建立或調整 `~/.codex/config.toml`。
+6. 確認 Obsidian Local REST API 的 API key 與 vault 路徑。
+7. 重新啟動 Codex，讓 command rules、MCP tools 與 skills 重新載入。
+8. `install-mac.sh` 只會把 automation 模板放到 `~/.codex/automation-templates`，不會自動啟用排程。
+9. 只在一台 Mac 啟用 automations。
+
+## GitHub CLI 與兩台 Mac
+
+- 可以讓兩台 Mac 同時登入同一個 GitHub 帳號；請讓每台 Mac 透過 `gh auth login` 取得自己的 OAuth 權杖。
+- `rules/gh-automation.rules` 只允許登入檢查、觸發 workflow，以及查看 workflow/run。它不允許全部 `gh` 指令。
+- command rule 採一次性手動安裝，避免覆蓋目前正在升級的 automation 同步腳本；安裝後需重開 Codex。
+- 權杖、`~/.config/gh/hosts.yml`、`auth.json`、`GH_TOKEN` 與 `GITHUB_TOKEN` 永遠不進 repo。
+- 若沙盒內顯示 `token invalid`，先在核准的沙盒外環境重跑 `gh auth status`；macOS 鑰匙圈在沙盒內不可讀時會造成假性失敗。
 
 ## 更新流程
 
