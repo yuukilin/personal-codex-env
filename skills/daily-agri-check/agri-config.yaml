@@ -22,6 +22,21 @@ paths:
   daily_report_dir: "daily-report"
   automation_dir: "/Users/yuukilin/.codex/automations/daily-agri-check"
 
+official_source_routes:
+  noaa_weekly_enso:
+    primary_pdf: "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/lanina/enso_evolution-status-fcsts-web.pdf"
+    fallback_relative_txt: "https://www.cpc.ncep.noaa.gov/data/indices/rel_wksst9120.txt"
+    fixed_filename_overwritten: true
+  unica_biweekly:
+    landing_page: "https://unicadata.com.br/listagem.php?idMn=63"
+    sitemap_index: "https://unica.com.br/wp-sitemap.xml"
+    missing_period_status: "scheduled but not yet published"
+  cepea_hydrous_ethanol:
+    daily_indicator: "https://cepea.org.br/en/indicator/ethanol.aspx"
+    weekly_indicator: "https://cepea.org.br/br/indicador/etanol.aspx"
+    weekly_series_xls: "https://cepea.org.br/br/indicador/series/etanol.aspx?id=103"
+    curl_browser_user_agent_required: true
+
 do_not_update:
   - ethanol-parity-tracker.md
 
