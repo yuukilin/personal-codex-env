@@ -13,6 +13,7 @@ import hashlib
 import html
 from html.parser import HTMLParser
 import json
+import os
 from pathlib import Path
 import re
 import ssl
@@ -22,8 +23,17 @@ import urllib.parse
 import urllib.request
 
 
-ROOT = Path(__file__).resolve().parents[1]
-CONFIG_PATH = ROOT / "config" / "source-map.json"
+CODE_ROOT = Path(__file__).resolve().parents[1]
+CODEX_HOME = Path(
+    os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))
+).expanduser()
+RUNTIME_ROOT = Path(
+    os.environ.get(
+        "COMPONENT_MARKET_RUNTIME_DIR",
+        str(CODEX_HOME / "automations" / "component-market-tracker"),
+    )
+).expanduser()
+CONFIG_PATH = CODE_ROOT / "config" / "source-map.json"
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 Chrome/125 Safari/537.36"
@@ -247,9 +257,9 @@ def main() -> int:
     args = parser.parse_args()
 
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-    raw_dir = ROOT / "runs" / args.date / "raw"
+    raw_dir = RUNTIME_ROOT / "runs" / args.date / "raw"
     raw_dir.mkdir(parents=True, exist_ok=True)
-    (ROOT / "snapshots").mkdir(exist_ok=True)
+    (RUNTIME_ROOT / "snapshots").mkdir(parents=True, exist_ok=True)
 
     snapshot: dict = {
         "date": args.date,
@@ -268,8 +278,13 @@ def main() -> int:
         snapshot["future"].update(future_meta)
 
         pdf_url = future_meta.get("pdf_url") or config["core_sources"]["future"]["pdf_url"]
-        pdf_probe = fetch(pdf_url, max_bytes=2_000_000)
-        snapshot["source_health"]["future_pdf"] = strip_data(pdf_probe)
+        pdf_probe = fetch(pdf_url)
+        pdf_health = strip_data(pdf_probe)
+        if pdf_probe.get("ok"):
+            raw_pdf_path = raw_dir / "future_market_conditions_report.pdf"
+            raw_pdf_path.write_bytes(pdf_probe["data"])
+            pdf_health["local_path"] = str(raw_pdf_path)
+        snapshot["source_health"]["future_pdf"] = pdf_health
 
         categories = {}
         for category_url in future_meta.get("category_links", []):
@@ -307,7 +322,7 @@ def main() -> int:
         (raw_dir / "hqew_quote.html").write_text(quote_html, encoding="utf-8")
         snapshot["hqew"]["cloud_quote"] = parse_hqew_quote(quote_html)
 
-    out_path = ROOT / "snapshots" / f"{args.date}-source-probe.json"
+    out_path = RUNTIME_ROOT / "snapshots" / f"{args.date}-source-probe.json"
     out_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
 
     fire_period = (

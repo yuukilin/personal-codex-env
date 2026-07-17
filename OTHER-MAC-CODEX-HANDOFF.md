@@ -1,6 +1,6 @@
 # 另一台 Mac Codex 交接指令
 
-用途：把另一台 Mac 的 Codex rules / skills 收集起來，準備跟主 repo 融合。
+用途：把另一台 Mac 的 Codex rules / skills 收集起來，準備跟主 repo 比對；automation host-state 只留在原 Mac 的 repo 外備份。
 
 重要：先不要執行 `./scripts/install-mac.sh`。那是安裝/覆蓋用的，不是融合用的。
 
@@ -21,6 +21,7 @@
 - 不要執行 ./scripts/install-mac.sh
 - 不要覆蓋我這台 Mac 現有的 ~/.codex/skills
 - 只做備份、收集、建立融合分支、push
+- automation host-state 必須留在這台 Mac 的 ~/.codex-env-backups/merge-review，不能進 incoming、不能 commit，也不能拿去覆寫另一台 Mac
 - 全程用繁體中文跟我回報
 
 請先執行台北時間檢查：
@@ -36,14 +37,15 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
    cd ~/Documents/Codex/personal-codex-env
 5. 確認在最新 main：
    git switch main
-   git pull
+   ./scripts/backup-current.sh
+   git pull --ff-only
 6. 建立融合分支：
    git switch -c merge-from-other-mac
    如果分支已存在，就改用：
    git switch merge-from-other-mac
-7. 執行備份：
-   ./scripts/backup-current.sh
-8. 收集這台 Mac 的 Codex rules / skills：
+7. 再次確認同步 layout：
+   ./scripts/validate-sync-layout.sh
+8. 收集這台 Mac 的 Codex rules / skills；腳本會把 host-state 另存到 repo 外：
    ./scripts/collect-local-for-merge.sh
 9. 檢查有哪些 incoming 檔案：
    git status --short
@@ -57,6 +59,8 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
 完成後請明確回覆我：
 - 有沒有成功 push
 - incoming 資料夾名稱
+- 本機 automation host-state 備份路徑
+- 確認 incoming 與 commit 完全沒有 automation.toml、status、target、cwd 或 timestamps
 - 有沒有遇到登入或權限問題
 - 再提醒我回原本那台 Mac 的 Codex 說：另一台已 push merge-from-other-mac
 ```

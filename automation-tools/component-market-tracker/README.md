@@ -47,16 +47,18 @@
 
 ## 檔案位置
 
-- 探測腳本：`scripts/probe_sources.py`
-- 報告生成腳本：`scripts/generate_report.py`
-- 來源對照：`config/source-map.json`
-- 報告：`reports/YYYY-MM-DD-component-market-radar.md`
-- 快照：`snapshots/YYYY-MM-DD-snapshot.json`
-- 原始抓取：`runs/YYYY-MM-DD/raw/`
-- 長期記憶：`memory.md`
+- 可攜程式碼根目錄：`${CODEX_HOME:-$HOME/.codex}/automation-tools/component-market-tracker`
+- 每台 Mac 的 runtime 根目錄：`${COMPONENT_MARKET_RUNTIME_DIR:-${CODEX_HOME:-$HOME/.codex}/automations/component-market-tracker}`
+- 探測腳本：程式碼根目錄下的 `scripts/probe_sources.py`
+- 報告生成腳本：程式碼根目錄下的 `scripts/generate_report.py`
+- 來源對照：程式碼根目錄下的 `config/source-map.json`
+- 報告：runtime 根目錄下的 `reports/YYYY-MM-DD-component-market-radar.md`
+- 快照：runtime 根目錄下的 `snapshots/YYYY-MM-DD-snapshot.json`
+- 原始抓取：runtime 根目錄下的 `runs/YYYY-MM-DD/raw/`
+- 長期記憶：runtime 根目錄下的 `memory.md`
 - Obsidian 時間軸：`/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板/2 Sources/Research/2026-07-01-元件供需雷達-Future-華強電子網-時間軸.md`
 
-Obsidian 不保存每週完整長報告。完整報告與原始快照保留在 automation 資料夾，Obsidian 只維護同一份活頁時間軸：
+程式碼目錄只放可同步程式與來源對照；歷史報告、快照、原始資料與 `memory.md` 只放每台 Mac 自己的 runtime 根目錄。Obsidian 不保存每週完整長報告，只維護同一份活頁時間軸：
 
 - 最新狀態
 - 目前優先題材
@@ -138,12 +140,12 @@ Obsidian 不保存每週完整長報告。完整報告與原始快照保留在 a
 
 例行追蹤時依序執行：
 
-1. `scripts/probe_sources.py --date YYYY-MM-DD --download-category-images`
-2. `scripts/generate_report.py --run-id YYYY-MM-DD`
+1. `${CODEX_HOME:-$HOME/.codex}/automation-tools/component-market-tracker/scripts/probe_sources.py --date YYYY-MM-DD --download-category-images`
+2. `${CODEX_HOME:-$HOME/.codex}/automation-tools/component-market-tracker/scripts/generate_report.py --run-id YYYY-MM-DD`
 
 Debug run 可用：
 
-1. `scripts/probe_sources.py --date YYYY-MM-DD-debug --download-category-images`
-2. `scripts/generate_report.py --run-id YYYY-MM-DD-debug --report-date YYYY-MM-DD`
+1. `${CODEX_HOME:-$HOME/.codex}/automation-tools/component-market-tracker/scripts/probe_sources.py --date YYYY-MM-DD-debug --download-category-images`
+2. `${CODEX_HOME:-$HOME/.codex}/automation-tools/component-market-tracker/scripts/generate_report.py --run-id YYYY-MM-DD-debug --report-date YYYY-MM-DD`
 
 `generate_report.py` 會讀取實際 snapshot schema、補 missing OCR、與上一期比較、輸出 automation report、summary JSON，並更新同一份 Obsidian 時間軸。

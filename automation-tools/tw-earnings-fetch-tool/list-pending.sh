@@ -1,12 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -uo pipefail
+set -euo pipefail
 
-REPO="/Users/yuukilin/Desktop/python/investment-data"
-AUTOMATION_DIR="/Users/yuukilin/.codex/automations/tw-earnings-fetch"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CODEX_HOME="${CODEX_HOME:-${HOME}/.codex}"
+REPO="${TW_EARNINGS_REPO:-${HOME}/Desktop/python/investment-data}"
+AUTOMATION_DIR="${TW_EARNINGS_AUTO_DIR:-${CODEX_HOME}/automations/tw-earnings-fetch}"
 LAST_RUN="$AUTOMATION_DIR/last-run.md"
-MANUAL_RESOLUTIONS="$AUTOMATION_DIR/manual-resolutions.json"
-VAULT="/Users/yuukilin/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板"
+MANUAL_RESOLUTIONS="${TW_EARNINGS_MANUAL_RESOLUTIONS:-${AUTOMATION_DIR}/manual-resolutions.json}"
+SEED_RESOLUTIONS="${SCRIPT_DIR}/manual-resolutions.seed.json"
+VAULT="${OBSIDIAN_VAULT_PATH:-${HOME}/Library/Mobile Documents/iCloud~md~obsidian/Documents/卡片筆記盒模板}"
 REMOTE_PATH="sources/tw-earnings/pending-list.json"
 REMOTE_REF="origin/main:$REMOTE_PATH"
 NOW="$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M:%S')"
@@ -18,8 +21,21 @@ cleanup() {
 }
 trap cleanup EXIT
 
+mkdir -p "$AUTOMATION_DIR"
+
 repo_status() {
-  git -C "$REPO" status -sb 2>&1 || true
+  local branch counts ahead behind
+  branch="$(git -C "$REPO" symbolic-ref --quiet --short HEAD 2>/dev/null || printf 'detached')"
+  counts="$(git -C "$REPO" rev-list --left-right --count HEAD...origin/main 2>/dev/null || true)"
+  if [[ "$counts" =~ ^([0-9]+)[[:space:]]+([0-9]+)$ ]]; then
+    ahead="${BASH_REMATCH[1]}"
+    behind="${BASH_REMATCH[2]}"
+    printf '%s...origin/main [ahead %s; behind %s; working tree intentionally not scanned]\n' \
+      "$branch" "$ahead" "$behind"
+  else
+    printf '%s [origin/main comparison unavailable; working tree intentionally not scanned]\n' \
+      "$branch"
+  fi
 }
 
 write_failure() {
@@ -42,6 +58,32 @@ write_failure() {
     printf -- '- 是否使用 stale fallback：否。\n'
   } > "$LAST_RUN"
 }
+
+for bin in git jq python3; do
+  if ! command -v "$bin" >/dev/null 2>&1; then
+    write_failure "缺少必要工具：$bin" "請先安裝或修復 $bin，未繼續讀取待抓清單。"
+    exit 1
+  fi
+done
+
+if [[ ! -f "$MANUAL_RESOLUTIONS" ]]; then
+  write_failure "runtime manual-resolutions.json 不存在，已 fail closed" "$MANUAL_RESOLUTIONS\n請由 $SEED_RESOLUTIONS 初始化缺少的 runtime 檔；不得用空清單取代或覆寫既有 runtime。"
+  exit 1
+fi
+
+if ! jq -e '
+  def resolution_items:
+    if type == "array" then .
+    elif type == "object" and (.resolutions | type == "array") then .resolutions
+    else error("manual resolutions must be an array or an object with resolutions array")
+    end;
+  resolution_items as $items
+  | ($items | all(.[]; (.id | type == "string") and (.id | length > 0)))
+    and ([$items[].id] | length == (unique | length))
+' "$MANUAL_RESOLUTIONS" >/dev/null 2>"$FETCH_LOG"; then
+  write_failure "runtime manual-resolutions.json 格式錯誤或含重複 ID，已 fail closed" "$(sed -n '1,120p' "$FETCH_LOG")"
+  exit 1
+fi
 
 if [[ ! -d "$REPO/.git" ]]; then
   write_failure "investment-data repo 不存在或不是 Git repo" "$REPO"
@@ -115,18 +157,20 @@ candidates.sort(key=lambda item: (
     str(item.get("stock_name", "")),
 ))
 
-manual_data = None
 manual_path = Path(manual_resolutions)
-if manual_path.exists():
-    try:
-        manual_data = json.loads(manual_path.read_text(encoding="utf-8"))
-    except Exception:
-        manual_data = None
+manual_data = json.loads(manual_path.read_text(encoding="utf-8"))
+if isinstance(manual_data, list):
+    manual_items = manual_data
+elif isinstance(manual_data, dict) and isinstance(manual_data.get("resolutions"), list):
+    manual_items = manual_data["resolutions"]
+else:
+    raise ValueError("manual-resolutions.json must be an array or an object with resolutions array")
+
+manual_ids = [str(item.get("id", "")) for item in manual_items if isinstance(item, dict)]
+if not all(manual_ids) or len(manual_ids) != len(set(manual_ids)):
+    raise ValueError("manual-resolutions.json contains empty or duplicate ids")
 
 def manual_reason(item_id):
-    if manual_data is None:
-        return None
-
     def walk(value):
         if isinstance(value, dict):
             if str(value.get("id", "")) == item_id:

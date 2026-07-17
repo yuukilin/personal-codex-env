@@ -42,6 +42,17 @@
 - 「補充到 X」：在尾端追加，並加日期分隔線。
 - 進階規則見 Obsidian vault 的 `_system/rules/obsidian-rules.md`。
 
+## Automations
+
+- `personal-codex-env/automations-templates/` 只同步共用定義：`version`, `id`, `kind`, `name`, `prompt`, `rrule`, `model`, `reasoning_effort`, `execution_environment`。
+- `status`, `target`, `cwds`, `created_at`, `updated_at` 與 `memory.md`, `last-run.md`, `last-close.md`, `manual-resolutions.json`, logs、runs、reports、snapshots 都是每台 Mac 的本機狀態，禁止用另一台的 snapshot 覆寫。兩台可以有同一組排程，但各自維持不同的啟用／暫停狀態、target 與 cwd。
+- pull／apply 前必須先完整備份 automations runtime 與 host-state，再跑同步 preflight；preflight 失敗就停止，不得帶錯繼續安裝。
+- 套用共用模板時，已存在的排程保留本機 `status`, `target`, `cwd`；缺少 ID 時先檢查同名或相同 prompt 的 legacy 排程。真的缺少時先從本機 host-state／備份恢復，完全沒有本機狀態才以 `PAUSED` 建立。
+- 建立或更新排程一律使用 Codex automation tool；禁止直接複製 template TOML 到 `~/.codex/automations/`、禁止直接修改內部 automation 資料庫。
+- portable tool 程式只能安裝到 `~/.codex/automation-tools/`，不得再寫進 `~/.codex/automations/`。只能增量安裝 Git 已追蹤、無 symlink、無 runtime 檔的工具 payload；禁止以 `rsync --delete` 或空的未追蹤目錄鏡像覆蓋任何 live 資料。
+- automation tool 的刪除／重建可能連同同 ID 的 runtime 目錄一起移除。做 ID 修復前必須先把 runtime 完整備份到 automation 目錄之外；重建後立即以 missing-only 方式恢復，並重新驗證 `memory.md`、`last-run.md`、`last-close.md` 與人工處理檔。
+- 發布 automation 變更時，不得從 live raw TOML 自動 snapshot 回 repo。先備份、驗證模板欄位、列出 diff，取得使用者確認後才能 commit／push。
+
 ## Skills
 
 - 製作或修改 Codex skill 時，優先使用 `$skill-creator` 或現有 Codex skill 格式。

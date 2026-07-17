@@ -1,0 +1,953 @@
+{
+  "version": 2,
+  "updated_at": "2026-07-15 recovery",
+  "notes": "由已驗證的 origin/main pending-list Git blob 重建並內嵌 117 筆人工略過紀錄，不再依賴可能被同步腳本刪除的 backups/ 路徑。",
+  "recovery_provenance": {
+    "repo": "$TW_EARNINGS_REPO (default: $HOME/Desktop/python/investment-data)",
+    "pending_list_blob": "cbbae2073d968d0ff2f0b854aa4624701aba48cb",
+    "selector": "done_reason == not_provided_by_user_marked_done",
+    "group_counts": {
+      "2026-06-15 15:20:45": 89,
+      "2026-06-23 16:56:30": 22,
+      "2026-06-25 10:27:21": 6
+    }
+  },
+  "resolutions": [
+    {
+      "id": "08c2977d-1b33-46a6-a925-c60ff2079bd0",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "新產",
+      "stock_number": "2850",
+      "audio_date": "2026-06-01"
+    },
+    {
+      "id": "4db8de6a-e014-48ce-8406-28d07a8b2267",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "全坤建",
+      "stock_number": "2509",
+      "audio_date": "2026-06-01"
+    },
+    {
+      "id": "710bfae4-2c94-4d70-a6ea-123c938ba6e6",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "岱宇",
+      "stock_number": "1598",
+      "audio_date": "2026-05-29"
+    },
+    {
+      "id": "fb375b43-e397-4761-80bf-5a450ac34da6",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Credo",
+      "stock_number": "CRDO",
+      "audio_date": "2026-06-01"
+    },
+    {
+      "id": "450e22b6-c5ba-4516-88d3-c00bb32da3a6",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Hewlett Packard",
+      "stock_number": "HPE",
+      "audio_date": "2026-06-01"
+    },
+    {
+      "id": "cbe9c681-b155-4423-952a-ec9f2fdb38f7",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "美亞",
+      "stock_number": "2020",
+      "audio_date": "2026-06-02"
+    },
+    {
+      "id": "c610080e-6ff9-4ae5-a3d7-e7258b813971",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "鑫聯大投控",
+      "stock_number": "3709",
+      "audio_date": "2026-06-02"
+    },
+    {
+      "id": "469d4846-9761-4422-935b-c2b31a3dd23d",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "驊宏資",
+      "stock_number": "6148",
+      "audio_date": "2026-06-02"
+    },
+    {
+      "id": "ded6c9eb-e977-4646-8991-6dac260b0fae",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "凱基金",
+      "stock_number": "2883",
+      "audio_date": "2026-06-02"
+    },
+    {
+      "id": "8699066d-ee0d-424a-a169-2ee53fb7d78e",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "第一金",
+      "stock_number": "2892",
+      "audio_date": "2026-06-02"
+    },
+    {
+      "id": "4e267a9f-ced2-438f-a436-d3a09c284d07",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Dell",
+      "stock_number": "DELL",
+      "audio_date": "2026-05-28"
+    },
+    {
+      "id": "281234b3-c17f-4445-93e0-ad3117a4df44",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "XPeng Inc.",
+      "stock_number": "XPEV",
+      "audio_date": "2026-05-28"
+    },
+    {
+      "id": "8ead06a6-aa12-4591-8ee3-b0aa0ba64a89",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "BEST BUY",
+      "stock_number": "BBY",
+      "audio_date": "2026-05-28"
+    },
+    {
+      "id": "2ec66204-2714-46f7-b2fe-54cc796e9057",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "MongoDB, Inc.",
+      "stock_number": "MDB",
+      "audio_date": "2026-05-28"
+    },
+    {
+      "id": "66d8aa20-417d-4c7c-ad57-2125340b2198",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "健鼎",
+      "stock_number": "3044",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "e0f071e1-2a7f-41e7-b177-c8b3ebdd2540",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "矽科宏晟",
+      "stock_number": "6725",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "eed5aa1e-65f4-4c1d-b8a8-727bcc520afa",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "邁達特",
+      "stock_number": "6112",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "846c1b12-7a13-4898-9159-f2ff476b6da8",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "台新新光金",
+      "stock_number": "2887",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "240c019f-df21-48ad-8ede-597c42bb8cac",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "南俊國際",
+      "stock_number": "6584",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "4ab6cc8f-a64c-4da7-a067-30577269b14c",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "三商壽",
+      "stock_number": "2867",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "ea8c0036-97ab-430f-ad8a-e0fd46f701c5",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "實威",
+      "stock_number": "8416",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "ea427e8d-cd96-46c5-b00f-23100535a92a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "GAP Inc",
+      "stock_number": "GAP",
+      "audio_date": "2026-05-28"
+    },
+    {
+      "id": "acc293a9-1ee2-4407-951a-05f1137c24dd",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "神隆",
+      "stock_number": "1789",
+      "audio_date": "2026-06-04"
+    },
+    {
+      "id": "e7980c56-8d9e-4d5f-9bfc-c1dd1876ddd5",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "台塑化",
+      "stock_number": "6505",
+      "audio_date": "2026-06-04"
+    },
+    {
+      "id": "06f7e2e4-d61f-44d3-bc1c-0c05fa916626",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "青新-創",
+      "stock_number": "6951",
+      "audio_date": "2026-06-04"
+    },
+    {
+      "id": "8717dbbd-e178-4981-ab8d-1f2028afcf99",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Lululemon Athletica Inc",
+      "stock_number": "LULU",
+      "audio_date": "2026-06-04"
+    },
+    {
+      "id": "4a372dea-e71d-46f5-b9b2-65ceee485836",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Synopsys Inc",
+      "stock_number": "SNPS",
+      "audio_date": "2026-05-27"
+    },
+    {
+      "id": "149773de-8892-495d-921e-dfa28da5f6c3",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Zscaler, Inc.",
+      "stock_number": "ZS",
+      "audio_date": "2026-05-26"
+    },
+    {
+      "id": "4950a75a-cbbe-4717-99fe-94b4d421aabf",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "創新服務",
+      "stock_number": "7828",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "a676bfbd-5612-4b65-8bbf-25ecf89d05e7",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "巨漢",
+      "stock_number": "6903",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "7676c25e-b73a-4954-b905-b5ec301d5d85",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "堡達",
+      "stock_number": "3537",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "59536c38-e48f-43a1-8b36-fa075af3d6c7",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "統一",
+      "stock_number": "1216",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "d24e1de0-14d3-4323-a319-89598b4ebf8b",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "寶緯",
+      "stock_number": "4558",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "0aa0791c-b2f6-4657-accd-8c3f7b5d995a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "夏都",
+      "stock_number": "2722",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "25f33620-f8e3-4913-a77e-57ac541dd48f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "官田鋼",
+      "stock_number": "2017",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "524a3761-739b-4434-9da6-4947f19763d3",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "民盛",
+      "stock_number": "7811",
+      "audio_date": "2026-06-04"
+    },
+    {
+      "id": "ac97c528-b742-4de5-826a-b53526df2bbe",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Home Depot",
+      "stock_number": "HD",
+      "audio_date": "2026-05-19"
+    },
+    {
+      "id": "a8dd8835-c4f6-44de-9608-b56e95342439",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Bilibili Inc.",
+      "stock_number": "BILI",
+      "audio_date": "2026-05-19"
+    },
+    {
+      "id": "afcad6fe-690d-4af4-9277-6f116c83befb",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Baidu, Inc.",
+      "stock_number": "BIDU",
+      "audio_date": "2026-05-18"
+    },
+    {
+      "id": "b59efd62-c4de-4655-8f82-dae5edd66c89",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Cisco",
+      "stock_number": "CSCO",
+      "audio_date": "2026-05-13"
+    },
+    {
+      "id": "08b8eb60-04df-4383-8e7c-eb63c3ee5093",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Alibaba Group Holding Limited",
+      "stock_number": "BABA",
+      "audio_date": "2026-05-13"
+    },
+    {
+      "id": "0f4851d1-5a81-4419-8c9a-2732d9610550",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Wix.com Ltd.",
+      "stock_number": "WIX",
+      "audio_date": "2026-05-13"
+    },
+    {
+      "id": "a86c2834-88a1-44c7-891f-b1427dfa27e7",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Tencent Music Entertainment Group",
+      "stock_number": "TME",
+      "audio_date": "2026-05-12"
+    },
+    {
+      "id": "200f049c-8dcc-4eb3-841e-283533b2b955",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Under Armour, Inc.",
+      "stock_number": "UA",
+      "audio_date": "2026-05-12"
+    },
+    {
+      "id": "b0128142-568e-4c53-9f4e-13150d6296a2",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Kopin",
+      "stock_number": "KOPN",
+      "audio_date": "2026-05-12"
+    },
+    {
+      "id": "e1da8d42-4d1b-48aa-a0a9-4a2bca151cb7",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Novanta",
+      "stock_number": "NOVT",
+      "audio_date": "2026-05-12"
+    },
+    {
+      "id": "e8fb2b98-c263-4826-85bd-8ed67914be78",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "3M",
+      "stock_number": "MMM",
+      "audio_date": "2026-05-12"
+    },
+    {
+      "id": "e115d681-1a4d-4c59-af85-4af1d6dbffc0",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "寶成",
+      "stock_number": "9904",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "96ba6d2f-3c0b-4367-a9bf-d8bff311947b",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Rigetti Computing, Inc. ",
+      "stock_number": "RGTI",
+      "audio_date": "2026-05-11"
+    },
+    {
+      "id": "57b5e5de-e7ba-47ed-931b-6c4a05c3c055",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "McDonalds",
+      "stock_number": "MCD",
+      "audio_date": "2026-05-07"
+    },
+    {
+      "id": "57dfc7db-2b63-465f-a9d3-ffbb2d0f13de",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "ICU Medical, Inc.",
+      "stock_number": "ICUI",
+      "audio_date": "2026-05-07"
+    },
+    {
+      "id": "867aa754-a9a2-4740-80c1-e2838b9c04d1",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "義隆",
+      "stock_number": "2458",
+      "audio_date": "2026-06-08"
+    },
+    {
+      "id": "779550b2-e74e-4d8b-9a42-065569a7e91f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "元山",
+      "stock_number": "6275",
+      "audio_date": "2026-06-08"
+    },
+    {
+      "id": "a9bc2e4c-1509-4940-88b3-e50f7ffc47c6",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "旭然",
+      "stock_number": "4556",
+      "audio_date": "2026-06-08"
+    },
+    {
+      "id": "3936c0d6-f2a4-4a50-8a35-197c5e997749",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "欣高",
+      "stock_number": "9931",
+      "audio_date": "2026-06-08"
+    },
+    {
+      "id": "45359a96-9beb-4873-ac1e-fc9ead643b7e",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "光聖",
+      "stock_number": "6442",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "c3daec6b-6672-49e0-96a9-b3dc5029127f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "嘉基",
+      "stock_number": "6715",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "bd0ac3d4-c5b3-474b-87e4-634aa4012b9e",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "印能科技",
+      "stock_number": "7734",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "20ca53ff-7779-4a06-b08b-8dcc44ee5f9d",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "旭隼",
+      "stock_number": "6409",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "5db66b92-a8be-4216-ab21-1c5c34f0fc2b",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "康和證",
+      "stock_number": "6016",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "39afec1d-f1e3-491a-a6de-b080985a35d2",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "永昕",
+      "stock_number": "4726",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "5e25b13b-3e7d-4dc6-a96b-b5dffbe6123d",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "晟鈦",
+      "stock_number": "3229",
+      "audio_date": "2026-06-10"
+    },
+    {
+      "id": "203c4e04-1b35-4638-9058-038b6ada2b39",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "神腦",
+      "stock_number": "2450",
+      "audio_date": "2026-06-10"
+    },
+    {
+      "id": "36566893-851e-436f-bdb9-e1efef29f00a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "安碁",
+      "stock_number": "6174",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "2d39d183-9542-4035-be77-2b0c3f8fadd8",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "遠百",
+      "stock_number": "2903",
+      "audio_date": "2026-06-05"
+    },
+    {
+      "id": "9f03c8d5-f7bf-4adb-8e71-4cda38426645",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "國泰金",
+      "stock_number": "2882",
+      "audio_date": "2026-06-03"
+    },
+    {
+      "id": "f1abf5db-8cec-41da-8b6e-2112947873b0",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Uranium Energy Corp",
+      "stock_number": "UEC",
+      "audio_date": "2026-06-09"
+    },
+    {
+      "id": "c59e6bbb-e849-4ee5-8987-1984faf00593",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "福懋科",
+      "stock_number": "8131",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "5b32bc0f-5675-4952-9007-b3f63d4b8857",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "倉佑",
+      "stock_number": "1568",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "b84cac73-0ee2-439c-9365-10a0ee53edb1",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "全家餐飲",
+      "stock_number": "7708",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "fc7f2c0b-dce6-426d-a54c-789c0c7977a1",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "磐亞",
+      "stock_number": "4707",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "cbe1e5f0-ba92-4916-b3c9-06066621394a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "黑松",
+      "stock_number": "1234",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "d278b716-7300-4a82-9597-b0ea40803344",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "鳳凰",
+      "stock_number": "5706",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "0ce3ca5f-5a55-4c1e-9e3f-e3ae3c04c64d",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "五鼎",
+      "stock_number": "1733",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "eff12046-57fc-4e65-858d-cbb850b2a064",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "成信實業*-創",
+      "stock_number": "6969",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "a84f0b82-9007-450d-9ba2-a441d0bfae0e",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "信錦",
+      "stock_number": "1582",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "b6a566cb-2ce0-4ad3-9cfd-cc85467dd2e0",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "志聖",
+      "stock_number": "2467",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "b91d2996-185f-46b3-be79-409f3b4c61fd",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "均華",
+      "stock_number": "6640",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "77541f74-46fa-47e6-9903-76bda3ec2d0a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "友輝",
+      "stock_number": "4933",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "2145cba6-75d0-4820-a1af-99c0b63d7301",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "傳奇",
+      "stock_number": "4994",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "de4ed4ef-3da4-4eaf-91ba-da69c1f1f511",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "亞諾法",
+      "stock_number": "4133",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "2d7d148a-f738-4eae-a12a-9d98b5fec671",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "華安",
+      "stock_number": "6657",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "e94980ad-e957-48b4-a554-24d555754aad",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "均豪",
+      "stock_number": "5443",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "d1eb5645-6370-4a0b-a774-2bb53d071328",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "宏碁資訊",
+      "stock_number": "6811",
+      "audio_date": "2026-06-12"
+    },
+    {
+      "id": "177b046f-af6f-4a51-b50c-e1780125875b",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "凌航",
+      "stock_number": "3135",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "9cabd0ab-cbfd-4dd0-8836-1a435c806ed4",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "世界健身-KY",
+      "stock_number": "2762",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "5038ee7b-e8d2-4f38-9521-f404524b6153",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "寶島科",
+      "stock_number": "5312",
+      "audio_date": "2026-06-11"
+    },
+    {
+      "id": "8b0be844-c107-4024-8478-13e07048bc61",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Palo Alto Networks, Inc.",
+      "stock_number": "PANW",
+      "audio_date": "2026-06-02"
+    },
+    {
+      "id": "9428a24c-a70e-40c4-a526-d1517567555f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-15 15:20:45",
+      "stock_name": "Walmart",
+      "stock_number": "WMT",
+      "audio_date": "2026-05-21"
+    },
+    {
+      "id": "5cfe0096-7430-41cd-a63c-fcfda61e61c9",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "卜蜂",
+      "stock_number": "1215",
+      "audio_date": "2026-06-15"
+    },
+    {
+      "id": "94ef8db9-c29a-4794-9908-da2adb29b96f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "驊陞",
+      "stock_number": "6272",
+      "audio_date": "2026-06-15"
+    },
+    {
+      "id": "dd5a3885-86d1-497f-9222-b6db5d591980",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "潤泰全",
+      "stock_number": "2915",
+      "audio_date": "2026-06-15"
+    },
+    {
+      "id": "64c3c35b-0583-4f43-ab30-878c85d6f76a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "華立",
+      "stock_number": "3010",
+      "audio_date": "2026-06-16"
+    },
+    {
+      "id": "79173b0f-d33b-4e46-8041-2195cc8176be",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "友訊",
+      "stock_number": "2332",
+      "audio_date": "2026-06-16"
+    },
+    {
+      "id": "649d006b-865e-4e98-a702-47d61fc99154",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "進典",
+      "stock_number": "6843",
+      "audio_date": "2026-06-16"
+    },
+    {
+      "id": "a4819f9a-e288-4521-a5c0-c22d84abb9bd",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "東生華",
+      "stock_number": "8432",
+      "audio_date": "2026-06-16"
+    },
+    {
+      "id": "fa7514b4-477d-40ec-8051-fefd7a54d1ca",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "國產",
+      "stock_number": "2504",
+      "audio_date": "2026-06-16"
+    },
+    {
+      "id": "23ff52ac-7e7b-4c15-a591-a537066e6a05",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "致和證",
+      "stock_number": "5864",
+      "audio_date": "2026-06-16"
+    },
+    {
+      "id": "a10f4b9c-9343-44ad-8b15-a298c9c43291",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "建大",
+      "stock_number": "2106",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "0dfe681a-fb25-4bc2-9932-d2a7f86d838c",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "台肥",
+      "stock_number": "1722",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "5733f2ab-342e-40ff-95f0-e673ac7a7c65",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "群益期",
+      "stock_number": "6024",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "47ecf6b1-0822-4fd7-80e8-bc094b21054f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "東和鋼鐵",
+      "stock_number": "2006",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "993891a2-5e00-4ea2-bba3-7d194bbf543e",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "能率亞洲",
+      "stock_number": "7777",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "6db8f183-a7dd-4f85-9a39-419709901ac5",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "威力暘-創",
+      "stock_number": "6988",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "8d7ad929-609b-4c70-b4ff-6af8c5acbca6",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "Jabil",
+      "stock_number": "JBL",
+      "audio_date": "2026-06-17"
+    },
+    {
+      "id": "e9f90a0f-23f3-4546-8fc9-e5d399cb0a1a",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "建漢",
+      "stock_number": "3062",
+      "audio_date": "2026-06-18"
+    },
+    {
+      "id": "7fb99dd0-d31b-476e-b3aa-5ace68a85fdf",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "鼎基",
+      "stock_number": "6585",
+      "audio_date": "2026-06-18"
+    },
+    {
+      "id": "a058292f-f091-453a-afdd-915b647322e0",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "王座",
+      "stock_number": "2751",
+      "audio_date": "2026-06-18"
+    },
+    {
+      "id": "650468e7-0d25-4ed6-971c-2b708d1d02a8",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "盛達",
+      "stock_number": "3027",
+      "audio_date": "2026-06-18"
+    },
+    {
+      "id": "b0c1517d-e0ce-40f2-9671-0d090927859f",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "興農",
+      "stock_number": "1712",
+      "audio_date": "2026-06-18"
+    },
+    {
+      "id": "a8bc3dfd-1f83-4413-ab61-3ef20d9a976e",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-23 16:56:30",
+      "stock_name": "第一保",
+      "stock_number": "2852",
+      "audio_date": "2026-06-18"
+    },
+    {
+      "id": "23836154-7b59-4b7a-91a1-9112921db21b",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-25 10:27:21",
+      "stock_name": "台灣高鐵",
+      "stock_number": "2633",
+      "audio_date": "2026-06-24"
+    },
+    {
+      "id": "e5bf0637-0154-4458-abff-66464c40ea56",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-25 10:27:21",
+      "stock_name": "伸興",
+      "stock_number": "1558",
+      "audio_date": "2026-06-24"
+    },
+    {
+      "id": "36dc378b-5412-4a49-abc3-dabd8a61d360",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-25 10:27:21",
+      "stock_name": "帝寶",
+      "stock_number": "6605",
+      "audio_date": "2026-06-24"
+    },
+    {
+      "id": "663d7a04-4b3d-42f1-bd9e-9eb025ce73bb",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-25 10:27:21",
+      "stock_name": "同協",
+      "stock_number": "5460",
+      "audio_date": "2026-06-24"
+    },
+    {
+      "id": "cb57bd03-8ead-4314-8cd8-c8dead855d70",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-25 10:27:21",
+      "stock_name": "隆大",
+      "stock_number": "5519",
+      "audio_date": "2026-06-24"
+    },
+    {
+      "id": "0962f01d-7cf4-466f-aa24-8f7690bf1288",
+      "reason": "not_provided_by_user_marked_done",
+      "resolved_at": "2026-06-25 10:27:21",
+      "stock_name": "中鋼",
+      "stock_number": "2002",
+      "audio_date": "2026-06-24"
+    }
+  ]
+}
