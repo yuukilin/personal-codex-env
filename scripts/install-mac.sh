@@ -70,6 +70,16 @@ atomic_install_file() {
     exit 1
   fi
 
+  # Most cross-Mac applies touch only a handful of files. Avoid replacing
+  # hundreds of identical skill files, which needlessly wakes iCloud and can
+  # turn a small rules update into a multi-minute install.
+  if [ -f "${destination_path}" ] && cmp -s "${source_path}" "${destination_path}"; then
+    if { [ -x "${source_path}" ] && [ -x "${destination_path}" ]; } || \
+      { [ ! -x "${source_path}" ] && [ ! -x "${destination_path}" ]; }; then
+      return 0
+    fi
+  fi
+
   destination_parent="$(dirname "${destination_path}")"
   mkdir -p "${destination_parent}"
   assert_no_symlink_components "${destination_parent}"
@@ -147,7 +157,7 @@ echo "Installed approved portable automation tools under ${CODEX_HOME}/automatio
 echo "Copied shared automation definitions without changing local switches or targets."
 echo "Verified post-install host state against: ${INSTALL_BACKUP_DIR}"
 echo "Preserved Codex system skills under ${CODEX_HOME}/skills/.system when present."
-echo "After any schedule reconciliation, run:"
+echo "Before closing this apply, run:"
 echo "${REPO_ROOT}/scripts/audit-automation-sync.sh --strict --baseline-backup ${INSTALL_BACKUP_DIR}"
 echo "Restart Codex if the skill list does not refresh immediately."
 echo "For Obsidian MCP on this Mac, run: ${REPO_ROOT}/scripts/setup-obsidian-mcp.sh"

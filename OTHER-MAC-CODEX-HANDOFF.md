@@ -47,9 +47,10 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
    ./scripts/validate-sync-layout.sh
 8. 收集這台 Mac 的 Codex rules / skills；腳本會把 host-state 另存到 repo 外：
    ./scripts/collect-local-for-merge.sh
-9. 檢查有哪些 incoming 檔案：
-   git status --short
-10. 把 incoming 加進分支並 commit：
+9. 檢查 incoming 不含已知 host-state／runtime 路徑、常見秘密檔名或 symlink，再人工查看內容：
+   ./scripts/validate-incoming-merge.sh
+   git status --short -- incoming
+10. 檢查通過後，才把 incoming 加進分支並 commit：
    git add incoming
    git commit -m "Collect Codex skills from other Mac"
    如果顯示 nothing to commit，就告訴我沒有新差異，不要硬做 commit。
@@ -60,7 +61,7 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
 - 有沒有成功 push
 - incoming 資料夾名稱
 - 本機 automation host-state 備份路徑
-- 確認 incoming 與 commit 完全沒有 automation.toml、status、target、cwd 或 timestamps
+- 確認 incoming 與 commit 完全沒有 automation.toml，或 automation host-state 的 status、target、cwd、created_at、updated_at
 - 有沒有遇到登入或權限問題
 - 再提醒我回原本那台 Mac 的 Codex 說：另一台已 push merge-from-other-mac
 ```
@@ -79,9 +80,9 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
 遇到這些都不要自己亂按，直接把錯誤貼回來。
 
 
-## 讓另一台 Mac 啟用 Obsidian MCP
+## 兩台都可安裝 Obsidian MCP，但同時只能一台寫入
 
-如果另一台 Mac 已經套用這個 repo，還需要在那台 Mac 本機建立自己的 Obsidian MCP server。不要同步 `~/.codex/mcp/` 裡的 binary，也不要同步真實 `config.toml` 或 API key。
+先讀 `OBSIDIAN-MCP-SINGLE-WRITER.md`。兩台 Mac 都可以在本機建立自己的 Obsidian MCP server，但新 Mac 的寫入型排程預設為 `PAUSED`。完成交接、確認另一台停止人工與排程寫入並完成 iCloud 同步後，這台才成為目前寫入端。不要同步 `~/.codex/mcp/` 裡的 binary，也不要同步真實 `config.toml` 或 API key。
 
 在另一台 Mac 的 repo 目錄執行：
 
@@ -95,4 +96,4 @@ TZ=Asia/Taipei date +%Y-%m-%d\ %H:%M:%S
 OBSIDIAN_VAULT_PATH="/你的/Obsidian/vault/路徑" ./scripts/setup-obsidian-mcp.sh
 ```
 
-完成後重開 Codex。這樣每台 Mac 都使用自己的 `~/.codex/mcp/obsidian-mcp-tools/mcp-server`，不會互相覆蓋。
+完成後重開 Codex。若要把寫入工作交接到這台，先暫停另一台的 Obsidian 寫入型排程、等待執行中工作結束並完成 iCloud 同步；接著在這台做建立、讀取與刪除健康檢查，通過後才用 Codex automation tool 啟用這台的寫入型排程。兩台不得同時寫入。

@@ -70,6 +70,7 @@ mkdir -p "${REPO}/automation-tools/escape-tool/nested"
 for script in backup-current.sh capture-automation-host-state.sh \
   validate-sync-layout.sh install-automation-tools.sh install-mac.sh \
   snapshot-from-local.sh collect-local-for-merge.sh audit-automation-sync.sh \
+  validate-incoming-merge.sh \
   restore-automation-runtime-missing-only.sh \
   seed-automation-runtime-missing-only.sh; do
   cp "${SOURCE_ROOT}/scripts/${script}" "${REPO}/scripts/${script}"
@@ -81,6 +82,8 @@ cp "${SOURCE_ROOT}/scripts/verify-automation-backup-consistency.py" \
 printf 'shared agent rules\n' > "${REPO}/AGENTS.md"
 printf 'shared command rule\n' > "${REPO}/rules/sample.rules"
 printf 'skill payload\n' > "${REPO}/skills/sample/SKILL.md"
+printf '#!/usr/bin/env bash\necho skill helper\n' > "${REPO}/skills/sample/run.sh"
+chmod +x "${REPO}/skills/sample/run.sh"
 printf 'agent skill payload\n' > "${REPO}/agents-skills/sample/SKILL.md"
 cat > "${REPO}/automations-templates/README.md" <<'EOF'
 # Shared definitions
@@ -267,6 +270,21 @@ grep -F 'BASELINE_OK' \
 [ "$(file_hash "${CODEX_HOME_UNDER_TEST}/automations/paused-schedule/automation.toml")" = "${paused_hash_before}" ] || fail "PAUSED schedule was changed"
 [ "$(file_hash "${CODEX_HOME_UNDER_TEST}/automations/victim/automation.toml")" = "${victim_hash_before}" ] || fail "victim schedule was changed"
 [ "$(tree_hash "${CODEX_HOME_UNDER_TEST}/automations")" = "${automation_tree_hash_before}" ] || fail "installer changed the live automation runtime tree"
+
+# Reapplying identical guidance must verify content without replacing every
+# destination inode. This keeps ordinary cross-Mac syncs fast and avoids
+# waking iCloud for hundreds of unchanged skill files.
+agent_rules_inode_before="$(stat -f '%i' "${CODEX_HOME_UNDER_TEST}/AGENTS.md")"
+skill_inode_before="$(stat -f '%i' "${CODEX_HOME_UNDER_TEST}/skills/sample/SKILL.md")"
+agent_skill_inode_before="$(stat -f '%i' "${AGENTS_HOME_UNDER_TEST}/skills/sample/SKILL.md")"
+chmod 0644 "${CODEX_HOME_UNDER_TEST}/skills/sample/run.sh"
+HOME="${TEST_HOME}" CODEX_HOME="${CODEX_HOME_UNDER_TEST}" \
+  AGENTS_HOME="${AGENTS_HOME_UNDER_TEST}" BACKUP_ROOT="${BACKUPS}" \
+  BACKUP_STAMP="idempotent-install" bash "${REPO}/scripts/install-mac.sh" >/dev/null
+[ "$(stat -f '%i' "${CODEX_HOME_UNDER_TEST}/AGENTS.md")" = "${agent_rules_inode_before}" ] || fail "identical AGENTS.md was needlessly replaced"
+[ "$(stat -f '%i' "${CODEX_HOME_UNDER_TEST}/skills/sample/SKILL.md")" = "${skill_inode_before}" ] || fail "identical user skill was needlessly replaced"
+[ "$(stat -f '%i' "${AGENTS_HOME_UNDER_TEST}/skills/sample/SKILL.md")" = "${agent_skill_inode_before}" ] || fail "identical agents skill was needlessly replaced"
+[ -x "${CODEX_HOME_UNDER_TEST}/skills/sample/run.sh" ] || fail "mode-only executable update was skipped"
 
 if command -v sqlite3 >/dev/null 2>&1; then
   assert_file "${BACKUPS}/valid-install/sqlite/codex-dev.db"
@@ -1060,6 +1078,22 @@ assert_no_file "${REPO}/incoming/test-host-review/automations-host-state/local-o
 assert_content "locally reviewed command rule" \
   "${REPO}/incoming/test-host-review/rules/sample.rules"
 assert_no_file "${REPO}/incoming/test-host-review/automations-templates/local-only/automation.toml"
+HOME="${TEST_HOME}" CODEX_HOME="${CODEX_HOME_UNDER_TEST}" \
+  AGENTS_HOME="${AGENTS_HOME_UNDER_TEST}" \
+  bash "${REPO}/scripts/validate-incoming-merge.sh" >/dev/null
+mkdir -p "${REPO}/incoming/test-host-review/automations-host-state/local-only"
+cp "${CODEX_HOME_UNDER_TEST}/automations/local-only/automation.toml" \
+  "${REPO}/incoming/test-host-review/automations-host-state/local-only/automation.toml"
+expect_failure "${TMP_ROOT}/incoming-host-state.out" \
+  bash "${REPO}/scripts/validate-incoming-merge.sh"
+rm -rf "${REPO}/incoming/test-host-review/automations-host-state"
+mkdir -p "${REPO}/incoming/test-host-review/skills/leak/.git"
+printf '{}\n' > "${REPO}/incoming/test-host-review/skills/leak/credentials.json"
+printf 'sqlite sidecar\n' > "${REPO}/incoming/test-host-review/skills/leak/codex-dev.db-wal"
+printf 'git metadata\n' > "${REPO}/incoming/test-host-review/skills/leak/.git/config"
+expect_failure "${TMP_ROOT}/incoming-secret-runtime.out" \
+  bash "${REPO}/scripts/validate-incoming-merge.sh"
+rm -rf "${REPO}/incoming/test-host-review/skills/leak"
 
 # Guard against reintroducing destructive mirror semantics in any current or
 # future shell writer, including runtime restore/seed helpers.

@@ -1,19 +1,20 @@
 # Manifest
 
-更新日期：2026-07-16
+更新日期：2026-07-20
 
 ## 已納入
 
 | 類別 | 數量 | 來源 |
 |---|---:|---|
 | Codex 全域規則 | 1 | `~/.codex/AGENTS.md` |
+| Obsidian MCP 跨 Mac 操作說明 | 1 | `OBSIDIAN-MCP-SINGLE-WRITER.md`；規定可交接的單一寫入端與故障處理流程 |
 | Codex command rules | 1 | `rules/gh-automation.rules`；不含 token，安裝到 `~/.codex/rules/` |
 | Codex user skills | 44 | `~/.codex/skills`，排除 `.system` |
 | `.agents` skills | 8 | `~/.agents/skills` |
 | Automation 共用定義 | 7 | `automations-templates/`；只含 allowlist 欄位，不從 live TOML 自動同步 |
 | Automation 可攜工具包 | 2 | `automation-tools/`；安裝到 `~/.codex/automation-tools/`，不與 live schedules 共用目錄 |
 | Automation 本機狀態 | 每台獨立 | `~/.codex/automations/`；只做本機備份與 host-state 檢查，不進 main |
-| 安裝/備份/驗證/稽核/融合/遠端連接/Obsidian MCP 修復腳本 | 13 | `scripts/` |
+| 安裝/備份/驗證/稽核/融合/遠端連接/Obsidian MCP 修復腳本 | 14 | `scripts/` |
 
 ## 已排除
 
@@ -47,8 +48,8 @@
 2. 執行 `./scripts/backup-current.sh`。
 3. 執行 `./scripts/install-mac.sh`。
 4. 若要使用 GitHub CLI，在這台 Mac 執行 `gh auth login`；command rule 已由 installer 安裝，權杖不會同步。
-5. 執行 `./scripts/setup-obsidian-mcp.sh`，建立本機簽章版 Obsidian MCP server。
+5. 先讀 `OBSIDIAN-MCP-SINGLE-WRITER.md`；兩台都可以執行 `./scripts/setup-obsidian-mcp.sh` 建立各自的本機簽章版 Obsidian MCP server。新 Mac 的寫入型排程預設為 `PAUSED`，完成寫入端交接後才啟用。
 6. 手動檢查 `~/.codex/config.toml` 或從 `config.template.toml` 改寫。
 7. 登入 Codex 並確認 Obsidian MCP API key。
-8. 記下 `install-mac.sh` 印出的精確 baseline 備份路徑；由 Codex automation tool 補齊或更新排程後，執行 `./scripts/audit-automation-sync.sh --strict --baseline-backup <該路徑>`。禁止直接複製 template TOML 或修改內部資料庫。
-9. 兩台 Mac 保有相同排程集合，但各自維持 `ACTIVE`／`PAUSED`、target 與 cwd。
+8. 記下 `install-mac.sh` 印出的精確 baseline 備份路徑；每次 apply 關帳前都執行 `./scripts/audit-automation-sync.sh --strict --baseline-backup <該路徑>`。若其後又由 Codex automation tool 補齊或更新排程，全部完成後再跑一次。禁止直接複製 template TOML 或修改內部資料庫。
+9. 兩台 Mac 保有相同排程集合，但各自維持 `ACTIVE`／`PAUSED`、target 與 cwd；Obsidian 寫入型排程同一時間只在目前寫入端啟用，另一台維持 `PAUSED`。
